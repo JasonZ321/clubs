@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Images } from '../imports/api/image';
+import { Clubs } from '../imports/api/clubs';
 
 function setUpImageServer() {
   Images.allow({
@@ -24,4 +25,7 @@ function setUpImageServer() {
 Meteor.startup(() => {
   // code to run on server at startup
   setUpImageServer();
+  Meteor.publish('clubs', function() {
+    return Clubs.find({});
+  });
 });

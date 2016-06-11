@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import { Images } from '../../../imports/api/image';
 import _ from 'lodash';
+import { browserHistory } from 'react-router';
 class CreateClub extends Component {
 	constructor(props) {
 		super(props);
@@ -25,14 +26,27 @@ class CreateClub extends Component {
 				} else {
 					const imageURL = 'http://localhost:3000/cfs/files/images/' + fileObj._id;
 
-				fileObj.on('uploaded', Meteor.bindEnvironment(function() {
-					component.onImageUploadFinished(imageURL)
-				}));
+					fileObj.on('uploaded', Meteor.bindEnvironment(function() {
+						component.onImageUploadFinished(imageURL)
+					}));
 
-				const userId = Meteor.userId();
-        Meteor.users.update(userId, {$set: {'profile.image': imageURL}})
+					const userId = Meteor.userId();
+	        Meteor.users.update(userId, {$set: {'profile.image': imageURL}})
 				}
 			});
+		});
+	}
+	onSubmitClub(event) {
+		event.preventDefault();
+		const club = {avatarURL: this.state.tmpURL, name: this.refs.name.value, description: this.refs.description.value };
+		Meteor.call("clubs.insert", club, function(error, result){
+			if(error){
+				console.log("error", error);
+			}
+			if(result){
+				// TODO: Navigate to home page of the created club
+				browserHistory.push("/");
+			}
 		});
 	}
 	render() {
@@ -41,27 +55,29 @@ class CreateClub extends Component {
 				<span>
 					<h1 className="text-center">Create club</h1>
 				</span>
-				<form>
+				<form onSubmit={this.onSubmitClub.bind(this)}>
 					<fieldset className="form-group">
 						<label>Name</label>
-						<input type="text" className="form-control" placehoder="Enter a name" />
+						<input type="text" ref='name' className="form-control" placehoder="Enter a name" />
 					</fieldset>
 					<fieldset className="form-group" >
 						<label>Description</label>
-						<textarea className="form-control" rows="8"></textarea>
+						<textarea className="form-control" ref='description' rows="8"></textarea>
 					</fieldset>
 					<fieldset>
 							<Dropzone onDrop={this.onImageUpload.bind(this)}>
                 <div>Try dropping some files here, or click to select files to upload.</div>
               </Dropzone>
 					</fieldset>
+					<button className='btn btn-primary'>Submit</button>
 				</form>
 				{this.renderImage()}
+
 			</div>
 		);
 	}
 	renderImage() {
-		return <img src={this.state.tmpURL} width='100' height='100' />
+		return <img src={this.state.tmpURL} width='256' height='256' />
 	}
 };
 

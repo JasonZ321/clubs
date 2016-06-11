@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import App from './components/app';
 import CreateClub from './components/clubs/create_club';
 import ClubsMain from './components/clubs/clubs_main';
-import { Image } from '../imports/api/image';
+import { Images } from '../imports/api/image';
+import { Clubs } from '../imports/api/clubs';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 const routes = (
