@@ -3,6 +3,7 @@ import Dropzone from 'react-dropzone';
 import { Images } from '../../../imports/api/image';
 import _ from 'lodash';
 import { browserHistory } from 'react-router';
+
 class CreateClub extends Component {
 	constructor(props) {
 		super(props);
@@ -27,11 +28,13 @@ class CreateClub extends Component {
 					const imageURL = 'http://localhost:3000/cfs/files/images/' + fileObj._id;
 
 					fileObj.on('uploaded', Meteor.bindEnvironment(function() {
-						component.onImageUploadFinished(imageURL)
-					}));
+						// TODO: image still not uploaded at this point for some reason.
+						// work around set time out
+						setTimeout(function () {
+				        component.onImageUploadFinished(imageURL)
+				    }, 1000);
 
-					const userId = Meteor.userId();
-	        Meteor.users.update(userId, {$set: {'profile.image': imageURL}})
+					}));
 				}
 			});
 		});
@@ -80,6 +83,5 @@ class CreateClub extends Component {
 		return <img src={this.state.tmpURL} width='256' height='256' />
 	}
 };
-
 
 export default CreateClub;
