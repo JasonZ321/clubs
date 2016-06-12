@@ -12,7 +12,7 @@ class Header extends Component {
 				<div className="navbar-header" >
 					<Link to="/" className="navbar-brand" >Clubs</Link>
 				</div>
-				<ul className="nav navbar-nav">
+				<ul className="nav navbar-nav navbar-right">
 					<li>
 						<Accounts />
 					</li>

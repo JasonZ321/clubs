@@ -28,4 +28,13 @@ Meteor.startup(() => {
   Meteor.publish('clubs', function() {
     return Clubs.find({});
   });
+
+  Meteor.publish('currentUser', function() {
+    return Meteor.users.find({_id: this.userId});
+  });
+
+  Accounts.onCreateUser(function(options, user) {
+    user.isClubUser = options.isClubUser;
+    return user;
+  });
 });

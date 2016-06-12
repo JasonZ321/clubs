@@ -3,7 +3,7 @@ import ClubDetail from './clubs_detail';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Clubs } from '../../../imports/api/clubs';
 
-class ClubsMain extends Component {
+class ClubList extends Component {
 	removeClub(club) {
 		Meteor.call('clubs.remove', club);
 	}
@@ -26,4 +26,4 @@ export default createContainer(() => {
 
 	return { clubs: Clubs.find({}).fetch() };
 
-}, ClubsMain);
+}, ClubList);
