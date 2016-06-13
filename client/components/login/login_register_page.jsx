@@ -89,7 +89,17 @@ class LoginRegisterPage extends Component {
 				if (error) {
 					console.log(error);
 				} else {
-					browserHistory.push('/');
+					const club = {name: clubRegisterName.value, city: clubRegisterCity.value };
+					Meteor.call("clubs.insert", club, function(error, result){
+						if(error){
+							console.log("error", error);
+						}
+						debugger;
+						if(result){
+							const url = `/club/${result}`;
+							browserHistory.push(url);
+						}
+					});
 				}
 			});
 		}

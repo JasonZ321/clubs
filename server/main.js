@@ -33,6 +33,10 @@ Meteor.startup(() => {
     return Meteor.users.find({_id: this.userId});
   });
 
+  Meteor.publish('currentClub', function() {
+    return Clubs.find({owner: this.userId});
+  })
+
   Accounts.onCreateUser(function(options, user) {
     user.isClubUser = options.isClubUser;
     return user;
