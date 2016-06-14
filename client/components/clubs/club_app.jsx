@@ -6,14 +6,21 @@ import { browserHistory } from 'react-router';
 import ClubHeader from './club_header';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
-class ClubMain extends Component {
+class ClubApp extends Component {
+	logout() {
+		Meteor.logout(function() {
+			console.log('Logged out');
+			browserHistory.push('/login_register');
+		});
+	}
 	render() {
 		return (
 			<div>
-				main page
+				<ClubHeader onLogout={this.logout}/>
+					{this.props.children}
 			</div>
 		);
 	}
 }
 
-export default ClubMain;
+export default ClubApp;
