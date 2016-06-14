@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { browserHistory, Link } from 'react-router';
 import { createContainer } from 'meteor/react-meteor-data';
 class ClubHeader extends Component {
-	constructor(props) {
-		super(props);
-	}
 	onLogout() {
 		Meteor.logout(function(){
 			console.log('Logged out');
@@ -13,7 +10,7 @@ class ClubHeader extends Component {
 	}
 	render() {
 		debugger;
-		const clubId = this.props.currentClub._id;
+		const clubId = this.props.club._id;
 		const mainURL =`/club/${clubId}`;
 		const activityURL = `/club/${clubId}/activity`;
 		const postURL = `/club/${clubId}/post`;
@@ -45,8 +42,4 @@ class ClubHeader extends Component {
 	}
 }
 
-export default createContainer(() => {
-	Meteor.subscribe('currentClub');
-	return { currentClub: Clubs.find({owner: Meteor.userId()}) }
-
-}, ClubHeader);
+export default ClubHeader;
