@@ -3,7 +3,7 @@ import ClubDetail from './clubs_detail';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Clubs } from '../../../imports/api/clubs';
 import { browserHistory } from 'react-router';
-import ClubHeader from './club_header';
+import ClubHeaderContainer from './club_header_container';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
 class ClubApp extends Component {
@@ -16,7 +16,7 @@ class ClubApp extends Component {
 	render() {
 		return (
 			<div>
-				<ClubHeader onLogout={this.logout}/>
+				<ClubHeaderContainer onLogout={this.logout}/>
 					{this.props.children}
 			</div>
 		);

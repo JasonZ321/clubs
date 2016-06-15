@@ -7,19 +7,13 @@ import { browserHistory } from 'react-router';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Clubs } from '../../imports/api/clubs';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
+import {composeWithTracker} from 'react-komposer';
 
 class App extends TrackerReact(Component) {
 	constructor(props) {
 		super(props);
-		this.state = {
-			subscription: {
-        currentClub: Meteor.subscribe('currentClub')
-      }
-		}
 	}
-	componentWillUnmount() {
-		this.state.subscription.currentClub.stop();
-	}
+
 	componentWillMount() {
 		const userId = Meteor.userId();
 		if (!userId) {
@@ -34,14 +28,16 @@ class App extends TrackerReact(Component) {
 				return;
 			}
 			if (currentUser && currentUser.isClubUser) {
-				const club = Clubs.findOne({'owner': currentUser._id});
-				if (!club) {
-					console.log(`user ${currentUser._id} doesn't have a club`);
-					return;
-				}
-				const clubId = club._id;
-				const url = `/club/${clubId}`;
-				browserHistory.push(url);
+				Meteor.subscribe('currentClub', function() {
+					const club = Clubs.findOne({'owner': currentUser._id});
+					if (!club) {
+						console.log(`user ${currentUser._id} doesn't have a club`);
+						return;
+					}
+					const clubId = club._id;
+					const url = `/club/${clubId}`;
+					browserHistory.push(url);
+				});
 			} else {
 				browserHistory.push('/user_main');
 			}

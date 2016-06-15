@@ -12,6 +12,7 @@
     "react-dom": "^15.1.0",
     "react-dropzone": "^3.5.0",
     "react-dropzone-component": "^1.0.4",
+    "react-komposer": "^1.8.0",
     "react-router": "^2.4.1"
   }
 }

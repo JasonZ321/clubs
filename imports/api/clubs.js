@@ -14,6 +14,13 @@ Meteor.methods({
 		} else {
 			console.error('User has no permission to remove club {}', club.name);
 		}
+	},
+	'clubs.update': function(clubId, club) {
+		if (clubId && club) {
+			Clubs.update(clubId, {
+	      $set: { ...club },
+	    });
+		}
 	}
 });
 
