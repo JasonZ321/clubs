@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const ClubHeader = ({club, onLogout}) => {
-		debugger;
 		const clubId = club._id;
 		const mainURL =`/club/${clubId}`;
 		const activityURL = `/club/${clubId}/activity`;
