@@ -4,10 +4,18 @@ import ClubIndexCell from './club_index_cell';
 
 class NearbyIndex extends Component {
 	renderClubList() {
-		return this.props.clubs.map(club => <ClubIndexCell key={club._id} club={club} />);
+		let props = this.props;
+		return props.clubs.map((club) => {
+			debugger;
+			return <ClubIndexCell key={club._id} callbacks={props.clubCallbacks} club={club} joined={props.joinedClubs.indexOf(club._id) >= 0}/>;
+		});
 	}
+
 	renderActivityList() {
-		return this.props.activities.map(activity => <ActivityIndexCell key={activity._id} activity={activity}/>);
+		let props = this.props;
+		return props.activities.map((activity) => {
+			return <ActivityIndexCell key={activity._id} activity={activity}/>;
+		});
 	}
 	render() {
 		return (

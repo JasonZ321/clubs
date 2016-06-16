@@ -2,7 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import { Images } from '../imports/api/image';
 import { Clubs } from '../imports/api/clubs';
 import { Activities } from '../imports/api/activities';
-
+import { ActivityUser } from '../imports/api/activity_user';
+import { ClubUser } from '../imports/api/club_user';
 function setUpImageServer() {
   Images.allow({
     'insert': function() {
@@ -49,6 +50,15 @@ Meteor.startup(() => {
   Meteor.publish('activities', function(clubId) {
     return Activities.find({clubId});
   })
+
+  Meteor.publish('joinedClubs', function(userId) {
+    debugger;
+    return ClubUser.find({userId});
+  })
+
+  Meteor.publish("joinedActivities", function(userId){
+    return ActivityUser.find({userId});
+  });
 
   Accounts.onCreateUser(function(options, user) {
     user.isClubUser = options.isClubUser;
