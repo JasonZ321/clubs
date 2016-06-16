@@ -94,7 +94,6 @@ class LoginRegisterPage extends Component {
 						if(error){
 							console.log("error", error);
 						}
-						debugger;
 						if(result){
 							const url = `/club/${result}`;
 							browserHistory.push(url);

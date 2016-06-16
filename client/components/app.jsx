@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Header from './header';
 import LoginRegisterPage from './login/login_register_page';
 import ClubMain from './clubs/club_main';
 import UserMain from './users/user_main';

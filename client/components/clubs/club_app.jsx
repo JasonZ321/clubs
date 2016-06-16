@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ClubDetail from './clubs_detail';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Clubs } from '../../../imports/api/clubs';
 import { browserHistory } from 'react-router';

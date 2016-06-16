@@ -13,7 +13,6 @@ class ClubSidePanel extends Component {
 	onImageUploadFinished(url) {
 		const clubId = this.props.club._id;
 		const club = {avatarURL: url};
-		debugger;
 		Meteor.call("clubs.update", clubId, club, function(error, result) {
 			if(error) {
 				console.log("error", error);

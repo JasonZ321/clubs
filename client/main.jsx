@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app';
-import CreateClub from './components/clubs/create_club';
 import ClubMain from './components/clubs/club_main';
 import UserMain from './components/users/user_main';
 import LoginRegisterPage from './components/login/login_register_page';
