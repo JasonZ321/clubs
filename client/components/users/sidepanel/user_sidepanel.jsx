@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
 import AvatarUploader from '../../common/avatar_uploader';
-import ClubDescriptionPanel from './club_description_panel';
 import { Images } from '../../../../imports/api/image';
 
-class ClubSidePanel extends Component {
+class UserSidePanel extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			avatarURL: this.props.club.avatarURL
-		};
+		if (this.props.user && this.props.user.profile) {
+			this.state = {
+				avatarURL: this.props.user.profile.avatarURL
+			};
+		} else {
+			this.state = {
+				avatarURL: null
+			}
+		}
+
 	}
 	onImageUploadFinished(url) {
-		const clubId = this.props.club._id;
-		const club = {avatarURL: url};
-		Meteor.call("clubs.update", clubId, club, function(error, result) {
-			if(error) {
-				console.log("error", error);
-			}
-		});
+		const userId = this.props.user._id;
+		const user = {profile: {avatarURL: url}};
+		Meteor.users.update({_id:userId}, { $set:{"profile.avatarURL":url} });
 		this.setState({
 			avatarURL: url
 		});
@@ -48,12 +50,11 @@ class ClubSidePanel extends Component {
 	render() {
 		return (
 			<div className='col-md-6'>
-				<div>{this.props.club.name}</div>
+				<div>{this.props.user.name}</div>
 				<AvatarUploader onImageUpload={this.onImageUpload.bind(this)} avatarURL={this.state.avatarURL} />
-				<ClubDescriptionPanel club={this.props.club} />
 			</div>
 		)
 	}
 }
 
-export default ClubSidePanel;
+export default UserSidePanel;

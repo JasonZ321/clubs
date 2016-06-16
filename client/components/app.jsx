@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import LoginRegisterPage from './login/login_register_page';
-import ClubMain from './clubs/club_main';
-import UserMain from './users/user_main';
 import { browserHistory } from 'react-router';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Clubs } from '../../imports/api/clubs';
@@ -38,7 +36,8 @@ class App extends TrackerReact(Component) {
 					browserHistory.push(url);
 				});
 			} else {
-				browserHistory.push('/user_main');
+				const url = `/user/${Meteor.userId()}`;
+				browserHistory.push(url);
 			}
 	  });
 	}
