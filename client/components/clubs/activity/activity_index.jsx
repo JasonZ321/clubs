@@ -42,7 +42,7 @@ class ClubActivityIndex extends Component {
 		return (
 			<div className='col-md-6'>
 				<button onClick={this.openPopup} className='btn btn-primary pull-right'>创建活动</button>
-				<ul className="employee-list">
+				<ul>
 					{this.renderActivityList()}
 				</ul>
 				<ActivityCreatePopup isOpen={this.state.popupOpen} onCancel={this.cancelActivityCreate.bind(this)} onSubmit={this.createActivity.bind(this)}/>

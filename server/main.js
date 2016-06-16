@@ -38,6 +38,14 @@ Meteor.startup(() => {
     return Clubs.find({owner: this.userId});
   })
 
+  Meteor.publish('clubsNearby', function() {
+    return Clubs.find({});
+  })
+
+  Meteor.publish('activitiesNearby', function() {
+    return Activities.find({});
+  })
+
   Meteor.publish('activities', function(clubId) {
     return Activities.find({clubId});
   })
