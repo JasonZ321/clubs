@@ -12,5 +12,4 @@ Meteor.methods({
 	}
 });
 
-
 export const ClubUser = new Mongo.Collection('club_user');

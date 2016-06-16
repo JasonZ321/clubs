@@ -52,7 +52,6 @@ Meteor.startup(() => {
   })
 
   Meteor.publish('joinedClubs', function(userId) {
-    debugger;
     return ClubUser.find({userId});
   })
 

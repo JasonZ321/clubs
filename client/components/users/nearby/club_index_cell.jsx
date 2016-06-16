@@ -4,7 +4,6 @@ import JoinButton from '../../common/join_button';
 const ClubIndexCell = ({club, key, joined, callbacks}) => {
 	const {avatarURL, name} = club;
 	const url = `/club/${club._id}`;
-	debugger;
 	return (
 		<li key={key} className="thumbnail">
 				<img className='thumbnail' src={avatarURL} />

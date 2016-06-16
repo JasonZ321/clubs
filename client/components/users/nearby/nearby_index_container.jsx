@@ -29,17 +29,23 @@ function unjoinClub(clubId) {
 }
 
 function joinActivity(activityId) {
-	Meteor.call('activity_user.insert', {activityId, userId: Meteor.userId()}, function(error) {
+	const userId = Meteor.userId();
+	Meteor.call('activity_user.insert', {activityId, userId}, function(error) {
 		if (error) {
 			console.error(error);
+		} else {
+			console.log("User '%s' joined Activity '%s' ", userId, activityId);
 		}
 	});
 }
 
 function unjoinActivity(activityId) {
-	Meteor.call('activity_user.remove', {activityId, userId: Meteor.userId()}, function(error) {
+	const userId = Meteor.userId();
+	Meteor.call('activity_user.remove', {activityId, userId}, function(error) {
 		if (error) {
 			console.error(error);
+		} else {
+			console.log("User '%s' unjoined Activity '%s' ", userId, activityId);
 		}
 	});
 }
@@ -55,7 +61,6 @@ function composer(props, onData) {
 			const activities = Activities.find({}, { sort: {'start_date': -1 }}).fetch();
 			const clubCallbacks = {joinClub, unjoinClub};
 			const activityCallbacks = {joinActivity, unjoinActivity};
-			debugger;
 			onData(null, { userId, clubs, activities, joinedClubs, joinedActivities, clubCallbacks, activityCallbacks });
 		}
 	}
