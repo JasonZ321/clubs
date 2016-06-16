@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ClubAvartarUploader from './club_avartar_uploader';
+import AvatarUploader from './avatar_uploader';
 import ClubDescriptionPanel from './club_description_panel';
 import { Images } from '../../../imports/api/image';
 
@@ -48,8 +48,8 @@ class ClubSidePanel extends Component {
 	}
 	render() {
 		return (
-			<div className='col-sm-5'>
-				<ClubAvartarUploader onImageUpload={this.onImageUpload.bind(this)} avatarURL={this.state.avatarURL} />
+			<div className='col-md-6'>
+				<AvatarUploader onImageUpload={this.onImageUpload.bind(this)} avatarURL={this.state.avatarURL} />
 				<ClubDescriptionPanel club={this.props.club} />
 			</div>
 		)

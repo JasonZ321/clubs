@@ -3,14 +3,13 @@ import Dropzone from 'react-dropzone';
 
 
 const EmptyAvartar = () => (
-	<div className='text-center'>上传社团头像</div>
+	<div className='text-center'>上传图片</div>
 )
 
 const Content = ({avatarURL}) => (
 	avatarURL != null ? <img src={avatarURL} className='img-responsive' /> : <EmptyAvartar />
 )
-const ClubAvartarUploader = ({onImageUpload, avatarURL}) => {
-	debugger;
+const AvartarUploader = ({onImageUpload, avatarURL}) => {
 	return (
 		<div className='panel-thumbnail'>
 			<Dropzone onDrop={onImageUpload}>
@@ -20,4 +19,4 @@ const ClubAvartarUploader = ({onImageUpload, avatarURL}) => {
 	);
 }
 
-export default ClubAvartarUploader;
+export default AvartarUploader;

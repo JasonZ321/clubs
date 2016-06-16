@@ -35,7 +35,7 @@ class LoginRegisterPage extends Component {
 					} else {
 						browserHistory.push('/');
 					}
-				})
+				});
 			} else {
 				alert('Invalid input!');
 				return;

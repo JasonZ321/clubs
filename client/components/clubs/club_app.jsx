@@ -8,7 +8,6 @@ import ClubSidePanelContainer from './club_sidepanel_container';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
 class ClubApp extends Component {
-
 	render() {
 		return (
 			<div>

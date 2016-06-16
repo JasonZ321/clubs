@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Images } from '../imports/api/image';
 import { Clubs } from '../imports/api/clubs';
+import { Activities } from '../imports/api/activities';
 
 function setUpImageServer() {
   Images.allow({
@@ -35,6 +36,10 @@ Meteor.startup(() => {
 
   Meteor.publish('currentClub', function() {
     return Clubs.find({owner: this.userId});
+  })
+
+  Meteor.publish('activities', function(clubId) {
+    return Activities.find({clubId});
   })
 
   Accounts.onCreateUser(function(options, user) {
