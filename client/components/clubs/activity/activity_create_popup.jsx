@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Modal from 'react-modal';
-import AvatarUploader from '../avatar_uploader';
+import AvatarUploader from '../../common/avatar_uploader';
 import { Images } from '../../../../imports/api/image';
 
 class ActivityCreatePopup extends Component {
@@ -34,7 +34,8 @@ class ActivityCreatePopup extends Component {
 			});
 		});
 	}
-	submitNewActivity() {
+	submitNewActivity(event) {
+		event.preventDefault();
 		const { name, location, start_date, end_date } = this.refs;
 		const activity = {
 			avatarURL: this.state.avatarURL,
@@ -44,6 +45,10 @@ class ActivityCreatePopup extends Component {
 			end_date: new Date()
 		}
 		this.props.onSubmit(activity);
+	}
+	cancel(event) {
+		event.preventDefault();
+		this.props.onCancel();
 	}
 	render() {
 		return (
@@ -57,7 +62,7 @@ class ActivityCreatePopup extends Component {
 							<label className="sr-only" for="location">地点:</label>
 							<input className='form-control' type="text" ref='location' placeholder="地点" id='location'/>
 							<button onClick={this.submitNewActivity.bind(this)} className='btn btn-primary'>创建</button>
-							<button onClick={this.props.onCancel} className='btn btn-danger'>取消</button>
+							<button onClick={this.cancel.bind(this)} className='btn btn-danger'>取消</button>
 					</form>
         </Modal>
 			</div>

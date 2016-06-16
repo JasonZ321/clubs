@@ -1,8 +1,8 @@
 import React from 'react';
-import { Clubs } from '../../../imports/api/clubs';
-import { Activities } from '../../../imports/api/activities';
+import { Clubs } from '../../../../imports/api/clubs';
+import { Activities } from '../../../../imports/api/activities';
 import { composeWithTracker } from 'react-komposer';
-import ClubActivityIndex from './club_activity_index';
+import ActivityIndex from './activity_index';
 
 
 function composer(props, onData) {
@@ -17,4 +17,4 @@ function composer(props, onData) {
 	}
 }
 
-export default composeWithTracker(composer)(ClubActivityIndex);
+export default composeWithTracker(composer)(ActivityIndex);

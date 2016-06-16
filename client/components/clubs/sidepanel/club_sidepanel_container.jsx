@@ -1,6 +1,6 @@
 import React from 'react';
 import {composeWithTracker} from 'react-komposer';
-import { Clubs } from '../../../imports/api/clubs';
+import { Clubs } from '../../../../imports/api/clubs';
 import ClubSidePanel from './club_sidepanel';
 function composer(props, onData) {
 	if (Meteor.subscribe('currentClub').ready()) {

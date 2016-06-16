@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import AvatarUploader from './avatar_uploader';
+import AvatarUploader from '../../common/avatar_uploader';
 import ClubDescriptionPanel from './club_description_panel';
-import { Images } from '../../../imports/api/image';
+import { Images } from '../../../../imports/api/image';
 
 class ClubSidePanel extends Component {
 	constructor(props) {

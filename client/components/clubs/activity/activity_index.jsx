@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ActivityIndexCell from './activity_index_cell';
-import ActivityCreatePopup from './activity/activity_create_popup';
+import ActivityCreatePopup from './activity_create_popup';
 
 class ClubActivityIndex extends Component {
 	constructor(props) {

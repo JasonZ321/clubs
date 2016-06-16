@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
-import { Clubs } from '../../../imports/api/clubs';
+import { Clubs } from '../../../../imports/api/clubs';
 import ClubHeader from './club_header';
 import {composeWithTracker} from 'react-komposer';
 

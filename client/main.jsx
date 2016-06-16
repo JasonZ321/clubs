@@ -4,7 +4,7 @@ import App from './components/app';
 import ClubMain from './components/clubs/club_main';
 import UserMain from './components/users/user_main';
 import LoginRegisterPage from './components/login/login_register_page';
-import ClubActivityIndexContainer from './components/clubs/club_activity_index_container';
+import ActivityIndexContainer from './components/clubs/activity/activity_index_container';
 import ClubManagement from './components/clubs/club_management_page';
 import ClubPostIndex from './components/clubs/club_post_index';
 import ClubApp from './components/clubs/club_app';
@@ -19,7 +19,7 @@ const routes = (
       <Route path="/login_register" component={LoginRegisterPage} />
       <Route path="/club/:clubId" component={ClubApp} >
         <IndexRoute component={ClubMain} />
-        <Route path='/club/:clubId/activity' component={ClubActivityIndexContainer} />
+        <Route path='/club/:clubId/activity' component={ActivityIndexContainer} />
         <Route path='/club/:clubId/post' component={ClubPostIndex} />
         <Route path='/club/:clubId/management' component={ClubManagement} />
       </Route>
