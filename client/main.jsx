@@ -12,7 +12,7 @@ import ActivityIndexContainer from './components/clubs/activity/activity_index_c
 import ClubActivityIndexContainer from './components/clubs/activity/activity_index_container';
 import ClubManagement from './components/clubs/club_management_page';
 import ClubPostIndex from './components/clubs/club_post_index';
-import ClubApp from './components/clubs/club_app';
+import ClubAppContainer from './components/clubs/club_app_container';
 import { Images } from '../imports/api/image';
 import { Clubs } from '../imports/api/clubs';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
@@ -20,7 +20,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 const routes = (
   <Router history={browserHistory} >
     <Route path="/" component={App} />
-    <Route path="/club/:clubId" component={ClubApp} >
+    <Route path="/club/:clubId" component={ClubAppContainer} >
       <IndexRoute component={ClubMain} />
       <Route path='/club/:clubId/activity' component={ClubActivityIndexContainer} />
       <Route path='/club/:clubId/post' component={ClubPostIndex} />

@@ -9,8 +9,16 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
 class ClubMain extends TrackerReact(Component) {
 	render() {
-		return <div>Main page</div>
+		debugger;
+		if (this.context.authorized) {
+			return <div>Authorized page</div>
+		}
+		return <div>unauthorized page</div>
 	}
 }
+
+ClubMain.contextTypes = {
+  authorized: React.PropTypes.bool
+};
 
 export default ClubMain;

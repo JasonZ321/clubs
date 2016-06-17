@@ -37,11 +37,15 @@ Meteor.startup(() => {
 
   Meteor.publish('currentClub', function() {
     return Clubs.find({owner: this.userId});
-  })
+  });
+
+  Meteor.publish('club', function(clubId) {
+    return Clubs.find({'_id': clubId});
+  });
 
   Meteor.publish('clubsNearby', function() {
     return Clubs.find({});
-  })
+  });
 
   Meteor.publish('activitiesNearby', function() {
     return Activities.find({});

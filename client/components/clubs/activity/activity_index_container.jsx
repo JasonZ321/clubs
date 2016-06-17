@@ -4,17 +4,23 @@ import { Activities } from '../../../../imports/api/activities';
 import { composeWithTracker } from 'react-komposer';
 import ActivityIndex from './activity_index';
 
-
-function composer(props, onData) {
-	if (Meteor.subscribe('currentClub').ready()) {
-		const club = Clubs.findOne({owner: Meteor.userId()});
-		if (club && Meteor.subscribe("activities", club._id).ready()) {
-			const activities = Activities.find({'clubId': club._id}, { sort: {'start_date': -1 }}).fetch();
-			onData(null, {activities});
-		} else if(!club) {
-			console.error('error! current club not found');
-		}
+function getClubIdByURL(url) {
+	let str = url.substr(url.lastIndexOf("/club/")+6);
+	if (str.indexOf('/') < 0) {
+		return str;
+	} else {
+		return str.substr(0, str.indexOf('/'));
 	}
 }
+
+function composer(props, onData) {
+	const url = props.location.pathname;
+	const clubId = getClubIdByURL(url);
+	if (Meteor.subscribe("activities", clubId).ready()) {
+		const activities = Activities.find({'clubId': clubId}, { sort: {'start_date': -1 }}).fetch();
+		onData(null, {activities});
+	}
+}
+
 
 export default composeWithTracker(composer)(ActivityIndex);
