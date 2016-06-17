@@ -19,22 +19,20 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 const routes = (
   <Router history={browserHistory} >
-    <Route path="/" component={App}>
-      <IndexRoute component={App} />
-      <Route path="/login_register" component={LoginRegisterPage} />
-      <Route path="/club/:clubId" component={ClubApp} >
-        <IndexRoute component={ClubMain} />
-        <Route path='/club/:clubId/activity' component={ClubActivityIndexContainer} />
-        <Route path='/club/:clubId/post' component={ClubPostIndex} />
-        <Route path='/club/:clubId/management' component={ClubManagement} />
-      </Route>
-      <Route path="/user/:userId" component={UserApp} >
-        <IndexRoute component={UserMain} />
-        <Route path='/user/:userId/nearby' component={UserNearbyIndexContainer} />
-        <Route path='/user/:userId/myclub' component={UserMyclubIndexContainer} />
-        <Route path='/user/:userId/myactivity' component={UserMyactivityIndexContainer} />
-      </Route>
+    <Route path="/" component={App} />
+    <Route path="/club/:clubId" component={ClubApp} >
+      <IndexRoute component={ClubMain} />
+      <Route path='/club/:clubId/activity' component={ClubActivityIndexContainer} />
+      <Route path='/club/:clubId/post' component={ClubPostIndex} />
+      <Route path='/club/:clubId/management' component={ClubManagement} />
     </Route>
+    <Route path="/user/:userId" component={UserApp} >
+      <IndexRoute component={UserMain} />
+      <Route path='/user/:userId/nearby' component={UserNearbyIndexContainer} />
+      <Route path='/user/:userId/myclub' component={UserMyclubIndexContainer} />
+      <Route path='/user/:userId/myactivity' component={UserMyactivityIndexContainer} />
+    </Route>
+
   </Router>
 );
 
