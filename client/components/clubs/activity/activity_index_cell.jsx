@@ -1,9 +1,9 @@
 import React from 'react';
 import JoinButton from '../../common/join_button';
-const ActivityIndexCell = ({activity, key, callbacks, joined}) => {
+const ActivityIndexCell = ({activity, callbacks, joined}) => {
 	const {avatarURL, name, start_date, end_date, location} = activity;
 	return (
-		<li key={key} className="thumbnail">
+		<li className="thumbnail">
 				<img className='thumbnail' src={avatarURL} />
 				<div className="caption">
 					<h3>{name}</h3>

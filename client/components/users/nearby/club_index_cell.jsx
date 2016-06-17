@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
 import JoinButton from '../../common/join_button';
-const ClubIndexCell = ({club, key, joined, callbacks}) => {
+const ClubIndexCell = ({club, joined, callbacks}) => {
 	const {avatarURL, name} = club;
 	const url = `/club/${club._id}`;
 	return (
-		<li key={key} className="thumbnail">
+		<li className="thumbnail">
 				<img className='thumbnail' src={avatarURL} />
 				<div className="caption">
 					<Link to={url}><h3>{name}</h3></Link>
