@@ -49,17 +49,27 @@ Meteor.startup(() => {
 
   Meteor.publish('activitiesNearby', function() {
     return Activities.find({});
-  })
+  });
 
   Meteor.publish('activities', function(clubId) {
     return Activities.find({clubId});
-  })
+  });
 
   Meteor.publish('joinedClubs', function(userId) {
-    return ClubUser.find({userId});
-  })
+    const clubUserIds = ClubUser.find({userId}).fetch().map(clubUser => clubUser.clubId);
+    return Clubs.find({_id : { $in : clubUserIds }});
+  });
 
   Meteor.publish("joinedActivities", function(userId){
+    const activityUserIds = ActivityUser.find({userId}).fetch().map(activityUser => activityUser.activityId);
+    return Activities.find({_id : { $in : activityUserIds }});
+  });
+
+  Meteor.publish('userClubs', function(userId) {
+    return ClubUser.find({userId});
+  });
+
+  Meteor.publish("userActivities", function(userId){
     return ActivityUser.find({userId});
   });
 

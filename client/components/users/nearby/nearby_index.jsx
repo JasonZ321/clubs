@@ -6,14 +6,14 @@ class NearbyIndex extends Component {
 	renderClubList() {
 		let props = this.props;
 		return props.clubs.map((club) => {
-			return <ClubIndexCell key={club._id} callbacks={props.clubCallbacks} club={club} joined={props.joinedClubs.indexOf(club._id) >= 0}/>;
+			return <ClubIndexCell key={club._id} callbacks={props.clubCallbacks} club={club} joined={props.userClubs.indexOf(club._id) >= 0}/>;
 		});
 	}
 
 	renderActivityList() {
 		let props = this.props;
 		return props.activities.map((activity) => {
-			return <ActivityIndexCell key={activity._id} callbacks={props.activityCallbacks} activity={activity} joined={props.joinedActivities.indexOf(activity._id) >= 0}/>;
+			return <ActivityIndexCell key={activity._id} callbacks={props.activityCallbacks} activity={activity} joined={props.userActivities.indexOf(activity._id) >= 0}/>;
 		});
 	}
 	render() {
