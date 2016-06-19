@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { composeWithTracker } from 'react-komposer';
-import { clubCallbacks } from '../utils/join';
-import { Clubs } from '../../../../imports/api/clubs';
+import { userJoinClub, userQuitClub } from '../../../../imports/api/club_api';
+import { Clubs } from '../../../../imports/collection/clubs';
 import MyclubIndex from './myclub_index';
 
 function getUserIdByURL(url) {
@@ -18,7 +18,7 @@ function composer(props, onData) {
 	const userId = getUserIdByURL(url);
 	if (Meteor.subscribe('joinedClubs', userId).ready()) {
 		const clubs = Clubs.find({}, { sort: {'start_date': -1 }}).fetch();
-		onData(null, { userId, clubs, clubCallbacks });
+		onData(null, { userId, clubs, clubCallbacks: {userJoinClub, userQuitClub} });
 	}
 }
 

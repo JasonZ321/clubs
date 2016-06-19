@@ -1,9 +1,10 @@
 import { Meteor } from 'meteor/meteor';
-import { Images } from '../imports/api/image';
-import { Clubs } from '../imports/api/clubs';
-import { Activities } from '../imports/api/activities';
-import { ActivityUser } from '../imports/api/activity_user';
-import { ClubUser } from '../imports/api/club_user';
+import { Images } from '../imports/collection/image';
+import { Clubs } from '../imports/collection/clubs';
+import { Activities } from '../imports/collection/activities';
+import { ActivityUser } from '../imports/collection/activity_user';
+import { ClubUser } from '../imports/collection/club_user';
+
 function setUpImageServer() {
   Images.allow({
     'insert': function() {
@@ -24,10 +25,8 @@ function setUpImageServer() {
   });
 }
 
-Meteor.startup(() => {
-  // code to run on server at startup
-  setUpImageServer();
-  Meteor.publish('clubs', function() {
+function publish() {
+	Meteor.publish('clubs', function() {
     return Clubs.find({});
   });
 
@@ -72,7 +71,12 @@ Meteor.startup(() => {
   Meteor.publish("userActivities", function(userId){
     return ActivityUser.find({userId});
   });
+}
 
+Meteor.startup(() => {
+  // code to run on server at startup
+  setUpImageServer();
+  publish();
   Accounts.onCreateUser(function(options, user) {
     user.isClubUser = options.isClubUser;
     return user;

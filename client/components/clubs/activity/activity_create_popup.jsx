@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Modal from 'react-modal';
 import AvatarUploader from '../../common/avatar_uploader';
-import { Images } from '../../../../imports/api/image';
+import { Images } from '../../../../imports/collection/image';
 
 class ActivityCreatePopup extends Component {
 	constructor(props) {

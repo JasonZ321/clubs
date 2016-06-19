@@ -1,24 +1,16 @@
 import React, { Component } from 'react';
 import { composeWithTracker } from 'react-komposer';
-import { activityCallbacks } from '../utils/join';
-import { Activities } from '../../../../imports/api/activities';
+import { userJoinActivity, userQuiteActivity } from '../../../../imports/api/activity_api';
+import { Activities } from '../../../../imports/collection/activities';
 import MyactivityIndex from './myactivity_index';
-
-function getUserIdByURL(url) {
-	var str = url.substr(url.lastIndexOf("/user/")+6);
-	if (str.indexOf('/') < 0) {
-		return str;
-	} else {
-		return str.substr(0, str.indexOf('/'));
-	}
-}
+import { getIdByURL } from '../../../../imports/util/common_util';
 
 function composer(props, onData) {
 	const url = props.location.pathname;
-	const userId = getUserIdByURL(url);
+	const userId = getIdByURL(url, "/user/");
 	if (Meteor.subscribe('joinedActivities', userId).ready()) {
 		const activities = Activities.find({}, { sort: {'start_date': -1 }}).fetch();
-		onData(null, { userId, activities, activityCallbacks });
+		onData(null, { userId, activities, activityCallbacks: {userJoinActivity, userQuiteActivity} });
 	}
 }
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import LoginRegisterPage from './login/login_register_page';
 import { browserHistory } from 'react-router';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Clubs } from '../../imports/api/clubs';
+import { Clubs } from '../../imports/collection/clubs';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import {composeWithTracker} from 'react-komposer';
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AvatarUploader from '../../common/avatar_uploader';
-import { Images } from '../../../../imports/api/image';
+import { Images } from '../../../../imports/collection/image';
 
 class UserSidePanel extends Component {
 	constructor(props) {

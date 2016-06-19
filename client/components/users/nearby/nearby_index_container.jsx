@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { composeWithTracker } from 'react-komposer';
-import { Clubs } from '../../../../imports/api/clubs';
-import { Activities } from '../../../../imports/api/activities';
-import { ClubUser } from '../../../../imports/api/club_user';
-import { ActivityUser } from '../../../../imports/api/activity_user';
+import { Clubs } from '../../../../imports/collection/clubs';
+import { Activities } from '../../../../imports/collection/activities';
+import { ClubUser } from '../../../../imports/collection/club_user';
+import { ActivityUser } from '../../../../imports/collection/activity_user';
 import NearbyIndex from './nearby_index';
-import { clubCallbacks, activityCallbacks } from '../utils/join';
+import { userJoinClub, userQuitClub } from '../../../../imports/api/club_api';
+import { userJoinActivity, userQuiteActivity } from '../../../../imports/api/activity_api';
+const clubCallbacks = { userJoinClub, userQuitClub };
+const activityCallbacks = { userJoinActivity, userQuiteActivity };
 
 function composer(props, onData) {
 	const userId = Meteor.userId();

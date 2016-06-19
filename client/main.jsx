@@ -13,8 +13,8 @@ import ClubActivityIndexContainer from './components/clubs/activity/activity_ind
 import ClubManagement from './components/clubs/club_management_page';
 import ClubPostIndex from './components/clubs/club_post_index';
 import ClubAppContainer from './components/clubs/club_app_container';
-import { Images } from '../imports/api/image';
-import { Clubs } from '../imports/api/clubs';
+import { Images } from '../imports/collection/image';
+import { Clubs } from '../imports/collection/clubs';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 const routes = (
