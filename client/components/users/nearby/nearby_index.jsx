@@ -4,16 +4,18 @@ import ClubIndexCell from './club_index_cell';
 
 class NearbyIndex extends Component {
 	renderClubList() {
-		let props = this.props;
+		const props = this.props;
+		const authorized = this.context.authorized;
 		return props.clubs.map((club) => {
-			return <ClubIndexCell key={club._id} callbacks={props.clubCallbacks} club={club} joined={props.userClubs.indexOf(club._id) >= 0}/>;
+			return <ClubIndexCell key={club._id} callbacks={props.clubCallbacks} club={club} authorized={authorized} joined={props.userClubs.indexOf(club._id) >= 0}/>;
 		});
 	}
 
 	renderActivityList() {
-		let props = this.props;
+		const props = this.props;
+		const authorized = this.context.authorized;
 		return props.activities.map((activity) => {
-			return <ActivityIndexCell key={activity._id} callbacks={props.activityCallbacks} activity={activity} joined={props.userActivities.indexOf(activity._id) >= 0}/>;
+			return <ActivityIndexCell key={activity._id} callbacks={props.activityCallbacks} activity={activity} authorized={authorized} joined={props.userActivities.indexOf(activity._id) >= 0}/>;
 		});
 	}
 	render() {
@@ -34,6 +36,10 @@ class NearbyIndex extends Component {
 			</div>
 		);
 	}
+}
+
+NearbyIndex.contextTypes = {
+	authorized: React.PropTypes.bool
 }
 
 export default NearbyIndex;

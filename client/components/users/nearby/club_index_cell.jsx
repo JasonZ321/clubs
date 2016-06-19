@@ -1,7 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
 import JoinButton from '../../common/join_button';
-const ClubIndexCell = ({club, joined, callbacks}) => {
+function renderJoinButton(authorized, joined, callbacks, targetId) {
+	if (authorized) {
+		return <JoinButton joined={joined} callbacks={callbacks} targetId={targetId} />;
+	}
+}
+const ClubIndexCell = ({club, joined, callbacks, authorized}) => {
 	const {avatarURL, name} = club;
 	const url = `/club/${club._id}`;
 	return (
@@ -10,7 +15,7 @@ const ClubIndexCell = ({club, joined, callbacks}) => {
 				<div className="caption">
 					<Link to={url}><h3>{name}</h3></Link>
 				</div>
-				<JoinButton joined={joined} callbacks={callbacks} targetId={club._id} />
+				{renderJoinButton(authorized, joined, callbacks, club._id)}
 		</li>
 	);
 }

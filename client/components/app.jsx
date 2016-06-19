@@ -107,7 +107,7 @@ class App extends TrackerReact(Component) {
 						Meteor.subscribe('currentClub', function() {
 							const club = Clubs.findOne({'owner': Meteor.userId()});
 							if (!club) {
-								console.log(`user ${currentUser._id} doesn't have a club`);
+								console.log("user %s doesn't have a club", Meteor.userId());
 								return;
 							}
 							const clubId = club._id;

@@ -38,18 +38,31 @@ class ClubActivityIndex extends Component {
 	renderActivityList() {
 		return this.props.activities.map(activity => <ActivityIndexCell key={activity._id} activity={activity}/>);
 	}
+	renderCreateActivityButton() {
+		if (this.context.authorized) {
+				return (
+					<div>
+						<button onClick={this.openPopup} className='btn btn-primary pull-right'>创建活动</button>
+						<ActivityCreatePopup isOpen={this.state.popupOpen} onCancel={this.cancelActivityCreate.bind(this)} onSubmit={this.createActivity.bind(this)}/>
+			    </div>
+				);
+		}
+	}
 	render() {
 		return (
 			<div className='col-md-6'>
-				<button onClick={this.openPopup} className='btn btn-primary pull-right'>创建活动</button>
+				{this.renderCreateActivityButton()}
 				<ul>
 					{this.renderActivityList()}
 				</ul>
-				<ActivityCreatePopup isOpen={this.state.popupOpen} onCancel={this.cancelActivityCreate.bind(this)} onSubmit={this.createActivity.bind(this)}/>
 			</div>
 		);
 	}
 }
+
+ClubActivityIndex.contextTypes = {
+	authorized: React.PropTypes.bool
+};
 
 
 export default ClubActivityIndex;

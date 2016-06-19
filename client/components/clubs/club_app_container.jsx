@@ -8,15 +8,14 @@ import { getIdByURL } from '../../../imports/util/common_util';
 function composer(props, onData) {
   if (Meteor.subscribe('currentClub').ready()) {
     var club = Clubs.findOne({owner: Meteor.userId()});
+    const url = props.location.pathname;
+    const clubIdFromURL = getIdByURL(url, "/club/");
 
-		if (club) {
+		if (club && club._id === clubIdFromURL) {
 			onData(null, {club, 'authorized': true});
 		} else {
-			const url = props.location.pathname;
-			const clubId = getIdByURL(url, "/club/");
-			if (Meteor.subscribe("club", clubId).ready()) {
-				club = Clubs.findOne({'_id': clubId});
-
+			if (Meteor.subscribe("club", clubIdFromURL).ready()) {
+				club = Clubs.findOne({'_id': clubIdFromURL});
 				onData(null, {club, 'authorized': false});
 			}
 		}

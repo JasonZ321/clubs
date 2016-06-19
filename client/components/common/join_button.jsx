@@ -35,4 +35,8 @@ class JoinButton extends Component {
 	}
 }
 
+JoinButton.contextTypes = {
+	authorized: React.PropTypes.bool
+}
+
 export default JoinButton;
