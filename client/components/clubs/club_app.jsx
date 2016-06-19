@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ClubHeader from './header/club_header';
 import ClubSidePanel from './sidepanel/club_sidepanel';
 import { browserHistory } from 'react-router';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class ClubApp extends Component {
 	getChildContext() {
@@ -14,16 +16,17 @@ class ClubApp extends Component {
 		});
 	}
 	render() {
-
 		if (this.props.club) {
 			return (
-				<div>
-					<ClubHeader club={this.props.club} onLogout={this.onLogout}/>
-					<div className='full col-sm-9'>
-						<ClubSidePanel club={this.props.club}/>
-							{this.props.children}
+				<MuiThemeProvider muiTheme={getMuiTheme()}>
+					<div>
+						<ClubHeader club={this.props.club} onLogout={this.onLogout}/>
+						<div className='full col-sm-9'>
+							<ClubSidePanel club={this.props.club}/>
+								{this.props.children}
+						</div>
 					</div>
-				</div>
+				</MuiThemeProvider>
 			);
 		} else {
 			return <div>Page is loading...</div>
