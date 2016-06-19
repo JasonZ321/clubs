@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './components/app';
 import ClubMain from './components/clubs/club_main';
 import UserMain from './components/users/user_main';
-import UserApp from './components/users/user_app';
+import UserAppContainer from './components/users/user_app_container';
 import UserNearbyIndexContainer from './components/users/nearby/nearby_index_container';
 import UserMyclubIndexContainer from './components/users/myclub/myclub_index_container';
 import UserMyactivityIndexContainer from './components/users/myactivity/myactivity_index_container';
@@ -26,7 +26,7 @@ const routes = (
       <Route path='/club/:clubId/post' component={ClubPostIndex} />
       <Route path='/club/:clubId/management' component={ClubManagement} />
     </Route>
-    <Route path="/user/:userId" component={UserApp} >
+    <Route path="/user/:userId" component={UserAppContainer} >
       <IndexRoute component={UserMain} />
       <Route path='/user/:userId/nearby' component={UserNearbyIndexContainer} />
       <Route path='/user/:userId/myclub' component={UserMyclubIndexContainer} />

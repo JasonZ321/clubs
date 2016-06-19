@@ -14,6 +14,7 @@ class ClubApp extends Component {
 		});
 	}
 	render() {
+
 		if (this.props.club) {
 			return (
 				<div>
