@@ -34,8 +34,8 @@ class UserHeader extends Component {
 				<Tabs onChange={this.handleTabChange.bind(this)}>
 					<Tab label='首页' route={mainURL}></Tab>
 					<Tab label='附近' route={nearbyURL}></Tab>
-					<Tab label='我的社团' route={myactivityURL}></Tab>
-					<Tab label='我的活动' route={myclubURL}></Tab>
+					<Tab label='我的社团' route={myclubURL}></Tab>
+					<Tab label='我的活动' route={myactivityURL}></Tab>
 			 	</Tabs>
 		</div>
 		);

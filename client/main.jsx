@@ -10,6 +10,7 @@ import UserMyactivityIndexContainer from './components/users/myactivity/myactivi
 import LoginRegisterPage from './components/login/login_register_page';
 import ActivityIndexContainer from './components/clubs/activity/activity_index_container';
 import ClubActivityIndexContainer from './components/clubs/activity/activity_index_container';
+import ActivityDetailContainer from './components/activities/activity_detail_container';
 import ClubManagement from './components/clubs/club_management_page';
 import ClubPostIndex from './components/clubs/club_post_index';
 import ClubAppContainer from './components/clubs/club_app_container';
@@ -28,8 +29,9 @@ const routes = (
     <Route path="/" component={App} />
     <Route path="/club/:clubId" component={ClubAppContainer} >
       <IndexRoute component={ClubMain} />
-      <Route path='/club/:clubId/activity' component={ClubActivityIndexContainer} />
-      <Route path='/club/:clubId/post' component={ClubPostIndex} />
+      <Route path='/club/:clubId/activities' component={ClubActivityIndexContainer} />
+      <Route path='/club/:clubId/activity/:activityId' component={ActivityDetailContainer} />
+      <Route path='/club/:clubId/posts' component={ClubPostIndex} />
       <Route path='/club/:clubId/management' component={ClubManagement} />
     </Route>
     <Route path="/user/:userId" component={UserAppContainer} >

@@ -4,6 +4,8 @@ import { Clubs } from '../imports/collection/clubs';
 import { Activities } from '../imports/collection/activities';
 import { ActivityUser } from '../imports/collection/activity_user';
 import { ClubUser } from '../imports/collection/club_user';
+import { Comments } from '../imports/collection/comments';
+import { ActivityImage } from '../imports/collection/activity_image';
 
 function setUpImageServer() {
   Images.allow({
@@ -31,6 +33,9 @@ function publish() {
   });
 
   Meteor.publish('currentUser', function() {
+    if (!this.userId) {
+      return this.ready();
+    }
     return Meteor.users.find({_id: this.userId});
   });
 
@@ -44,6 +49,10 @@ function publish() {
 
   Meteor.publish('club', function(clubId) {
     return Clubs.find({'_id': clubId});
+  });
+
+  Meteor.publish("activity", function(activityId){
+    return Activities.find({'_id': activityId});
   });
 
   Meteor.publish('clubsNearby', function() {
@@ -74,6 +83,14 @@ function publish() {
 
   Meteor.publish("userActivities", function(userId){
     return ActivityUser.find({userId});
+  });
+
+  Meteor.publish("activityComments", function(activityId) {
+    return Comments.find({activityId});
+  });
+
+  Meteor.publish("activityGallery", function(activityId) {
+    return ActivityImage.find({activityId});
   });
 }
 

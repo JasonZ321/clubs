@@ -26,8 +26,8 @@ class ClubHeader extends Component {
 	renderClubTabs() {
 		const clubId = this.props.club._id;
 		const mainURL =`/club/${clubId}`;
-		const activityURL = `/club/${clubId}/activity`;
-		const postURL = `/club/${clubId}/post`;
+		const activityURL = `/club/${clubId}/activities`;
+		const postURL = `/club/${clubId}/posts`;
 		const managementURL = `/club/${clubId}/management`;
 		return (
 			<div>

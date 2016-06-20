@@ -8,10 +8,10 @@ Meteor.methods({
 			 activityId,
 			 content
 		 });
-	}
+	},
 	'comments.remove': function(commentId) {
 		Comments.remove({'_id' : commentId});
 	}
 });
 
-export const Comments = new Mongon.Collection('comments');
+export const Comments = new Mongo.Collection('comments');

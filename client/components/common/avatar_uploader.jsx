@@ -9,7 +9,7 @@ const EmptyAvartar = () => (
 const Content = ({avatarURL}) => (
 	avatarURL != null ? <img src={avatarURL} className='img-responsive' /> : <EmptyAvartar />
 )
-const AvartarUploader = ({onImageUpload, avatarURL}) => {
+const AvatarUploader = ({onImageUpload, avatarURL}) => {
 	return (
 		<div className='panel-thumbnail'>
 			<Dropzone onDrop={onImageUpload}>
@@ -19,4 +19,4 @@ const AvartarUploader = ({onImageUpload, avatarURL}) => {
 	);
 }
 
-export default AvartarUploader;
+export default AvatarUploader;
