@@ -30,34 +30,65 @@ class ActivityGallery extends Component {
 		}
 	}
 	onImageUpload(files) {
+		let newFiles = files.map(file => {
+			return {...file, status: 'new'}
+		});
 		this.setState({
-			newImages: [...this.state.newImages, ...files]
+			newImages: [...this.state.newImages, ...newFiles]
 		});
 	}
 	onImageRemoved(oldImage) {
+		debugger;
 		const removedImage = {...oldImage, status: 'removed'};
-		const images = this.state.existImages.map((image) => {
-			if (image.imageURL === removedImage.imageURL) {
-				return removedImage;
-			} else {
-				return image;
-			}
-		});
+
+		if (oldImage.status === 'normal') {
+			const images = this.state.existImages.map((image) => {
+				if (image.imageURL === removedImage.imageURL) {
+					return {...image, status: 'removed'};
+				} else {
+					return image;
+				}
+			});
+			this.setState({
+				existImages: images
+			});
+		} else if (oldImage.status === 'new') {
+			const images = this.state.newImages.map((image) => {
+				if (image.preview === removedImage.imageURL) {
+					return {...image, status: 'removed'};
+				} else {
+					return image;
+				}
+			});
+			this.setState({
+				newImages: images
+			});
+		} else {
+			console.log("error", "status should be either new or normal");
+		}
 	}
+
 	renderImages() {
 		const existImages = this.state.existImages;
 		const newImages = this.state.newImages;
-		let renderImages = [
-			...newImages.map(image => this.getImageGrid(this.onImageRemoved.bind(this), {imageURL: image.preview})),
-			...existImages.map(image => this.getImageGrid(this.onImageRemoved.bind(this), image))
+		debugger;
+		const displayFilter = function(image) {
+			if (image && image.status) {
+				return image.status !== 'removed';
+			}
+			return true;
+		}
+		let displayedImages = [
+			...newImages.filter(displayFilter).map(image => this.getImageGrid(this.onImageRemoved.bind(this), {imageURL: image.preview, status: 'new'})),
+			...existImages.filter(displayFilter).map(image => this.getImageGrid(this.onImageRemoved.bind(this), image))
 		];
 
-		if (renderImages.length > 0) {
+		if (displayedImages.length > 0) {
 			return (
 				<GridList
 				 cellHeight={200}
 				 style={styles.gridList} >
-				 	{[...renderImages]}
+				 	{[...displayedImages]}
 				</GridList>
 			);
 		} else {
