@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-
+import { Images } from '../collection/image';
 export function createActivity(activity, callback) {
 	Meteor.call('activities.insert', activity, function(error, result) {
 		if (error) {
@@ -66,6 +66,45 @@ export function userQuiteActivity(activityId, callback) {
 		}
 		if(result){
 			console.log("User '%s' quited Activity '%s' ", userId, activityId);
+		}
+		if (callback) {
+			callback(result);
+		}
+	});
+}
+
+export function createActivityImage(file, activityId, callback) {
+	Images.insert(file, function(err, fileObj){
+		if (err) {
+			console.log(err);
+		} else {
+			setTimeout(function () {
+				// TODO: image still not uploaded at this point for some reason.
+				// work around set time out
+				Meteor.call("activity_image.insert", {activityId, imageId:fileObj._id}, function (error, result) {
+					if (error) {
+						console.log("error", error);
+					}
+					if (result) {
+						console.log("Image %s added on activity %s", fileObj._id, activityId);
+					}
+					if (callback) {
+						callback(result);
+					}
+				});
+			}, 1000);
+		}
+	});
+}
+
+export function removeActivityImage(imageId, activityId, callback) {
+  Images.remove({'_id': imageId});
+	Meteor.call("activity_image.remove", {activityId, imageId}, function (error, result) {
+		if (error) {
+			console.log("error", error);
+		}
+		if (result) {
+			console.log("Image %s removed on activity %s", imageId, activityId);
 		}
 		if (callback) {
 			callback(result);

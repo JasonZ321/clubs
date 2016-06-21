@@ -9,7 +9,7 @@ Meteor.methods({
 		});
 	},
 	'activity_image.remove':function({activityId, imageId}) {
-		ActivityImage.remove({activity, imageId});
+		return ActivityImage.remove({activityId, imageId});
 	}
 });
 
