@@ -1,7 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 
 Meteor.methods({
-	'comments.insert': function(activityId, content){
+	'comments.insert': function({activityId, content}){
 		 return Comments.insert({
 			 createdAt: new Date(),
 			 userId: this.userId,

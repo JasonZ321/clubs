@@ -111,3 +111,17 @@ export function removeActivityImage(imageId, activityId, callback) {
 		}
 	});
 }
+
+export function submitComment(activityId, content, callback) {
+	Meteor.call('comments.insert', {activityId, content}, function(error, result) {
+		if (error) {
+			console.log("error", error);
+		}
+		if (result) {
+			console.log("Comment '%s' added ", content);
+		}
+		if (callback) {
+			callback(result);
+		}
+	});
+}

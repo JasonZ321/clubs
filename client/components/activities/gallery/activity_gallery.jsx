@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import ActivityImageGrid from './activity_image_grid';
 import {GridList} from 'material-ui/GridList';
 import Dropzone from 'react-dropzone';
-import { Images } from '../../../imports/collection/image';
-import {createActivityImage, removeActivityImage} from '../../../imports/api/activity_api';
+import { Images } from '../../../../imports/collection/image';
+import {createActivityImage, removeActivityImage} from '../../../../imports/api/activity_api';
 
 const styles = {
   gridList: {
