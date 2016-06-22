@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ActivityIndexCellContainer from './activity_index_cell_container';
 import ActivityCreatePopup from './activity_create_popup';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 class ClubActivityIndex extends Component {
 	constructor(props) {
@@ -41,8 +43,8 @@ class ClubActivityIndex extends Component {
 	renderCreateActivityButton() {
 		if (this.context.authorized) {
 				return (
-					<div>
-						<button onClick={this.openPopup} className='btn btn-primary pull-right'>创建活动</button>
+					<div style={{'text-align': 'right', 'marginBottom': 20}} >
+						<FloatingActionButton onClick={this.openPopup} ><ContentAdd /></FloatingActionButton>
 						<ActivityCreatePopup isOpen={this.state.popupOpen} onCancel={this.cancelActivityCreate.bind(this)} onSubmit={this.createActivity.bind(this)}/>
 			    </div>
 				);

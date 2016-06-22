@@ -51,6 +51,10 @@ function publish() {
     return Clubs.find({'_id': clubId});
   });
 
+  Meteor.publish('clubByOwner', function(userId) {
+    return Clubs.find({'owner': userId});
+  });
+
   Meteor.publish("activity", function(activityId){
     return Activities.find({'_id': activityId});
   });

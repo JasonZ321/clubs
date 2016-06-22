@@ -5,7 +5,9 @@ class ActivityComments extends Component {
 	render() {
 		return (
 			<div>
-	  		<ActivityCommentEditor activityId={this.props.activityId}/>
+	  		{
+					this.props.authorizedToComment ? <ActivityCommentEditor authorizedToComment={this.props.authorizedToComment} activityId={this.props.activityId}/> : <div></div>
+				}
 				{
 					this.props.comments && this.props.comments.length > 0 ?
 					<ActivityCommentList activityId={this.props.activityId} comments={this.props.comments} />

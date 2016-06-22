@@ -10,20 +10,35 @@ class ActivityCommentCell extends Component {
 	render() {
 		const comment = this.props.comment;
 		const user = this.props.user;
-
-		return (
-			<div>
-				<ListItem
-	          leftAvatar={<Avatar src={user.profile.avatarURL} />}
-	          primaryText="user"
-	          secondaryText={
-	            this.renderCommentContent(comment)
-	          }
-	          secondaryTextLines={2}
-	        />
-	        <Divider inset={true} />
-   	</div>
-		);
+		if (user.isClubUser && this.props.club) {
+			return (
+				<div>
+					<ListItem
+		          leftAvatar={<Avatar src={this.props.club.avatarURL} />}
+		          primaryText={this.props.club.name}
+		          secondaryText={
+		            this.renderCommentContent(comment)
+		          }
+		          secondaryTextLines={2}
+		        />
+		        <Divider inset={true} />
+	   	</div>
+			);
+		} else {
+			return (
+				<div>
+					<ListItem
+		          leftAvatar={<Avatar src={user.profile.avatarURL} />}
+		          primaryText="user"
+		          secondaryText={
+		            this.renderCommentContent(comment)
+		          }
+		          secondaryTextLines={2}
+		        />
+		        <Divider inset={true} />
+	   	</div>
+			);
+		}
 	}
 }
 

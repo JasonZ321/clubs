@@ -2,13 +2,28 @@ import React, {Component} from 'react';
 import Modal from 'react-modal';
 import AvatarUploader from '../../common/avatar_uploader';
 import { Images } from '../../../../imports/collection/image';
+import DatePicker from 'material-ui/DatePicker';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 class ActivityCreatePopup extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			avatarURL: null
+			avatarURL: null,
+			startDate: null,
+			endDate: null
 		}
+	}
+	handleStartDateChange(event, date) {
+		this.setState({
+			startDate: date
+		});
+	}
+	handleEndDateChange(event, date) {
+		this.setState({
+			endDate: date
+		});
 	}
 	onImageUpload(files) {
 		let component = this;
@@ -36,18 +51,28 @@ class ActivityCreatePopup extends Component {
 	}
 	submitNewActivity(event) {
 		event.preventDefault();
-		const { name, location, start_date, end_date } = this.refs;
+		const { name, location } = this.refs;
+
 		const activity = {
 			avatarURL: this.state.avatarURL,
-			name: name.value,
-			location: location.value,
-			start_date: new Date(),
-			end_date: new Date()
+			name: name.getValue(),
+			location: location.getValue(),
+			start_date: this.state.startDate,
+			end_date: this.state.endDate
 		}
-		this.props.onSubmit(activity);
+		if (activity.avatarURL && activity.name && activity.location && activity.start_date) {
+			this.props.onSubmit(activity);
+		} else {
+			console.log("Must fill all fields");
+		}
 	}
 	cancel(event) {
 		event.preventDefault();
+		this.setState({
+			avatarURL: null,
+			startDate: null,
+			endDate: null
+		});
 		this.props.onCancel();
 	}
 	render() {
@@ -57,12 +82,12 @@ class ActivityCreatePopup extends Component {
           <h1>创建新活动</h1>
 					<form className="form-signin">
 							<AvatarUploader onImageUpload={this.onImageUpload.bind(this)} avatarURL={this.state.avatarURL} />
-							<label className="sr-only" for="name">活动名:</label>
-							<input className='form-control' type="text" ref='name' placeholder="活动名" id='name'/>
-							<label className="sr-only" for="location">地点:</label>
-							<input className='form-control' type="text" ref='location' placeholder="地点" id='location'/>
-							<button onClick={this.submitNewActivity.bind(this)} className='btn btn-primary'>创建</button>
-							<button onClick={this.cancel.bind(this)} className='btn btn-danger'>取消</button>
+							<TextField hintText="活动名" ref='name'/>
+							<TextField hintText="地点" ref='location'/>
+							<DatePicker hintText="选择开始日期" value={this.state.startDate} onChange={this.handleStartDateChange.bind(this)} />
+							<DatePicker hintText="选择结束时间" value={this.state.endDate} onChange={this.handleEndDateChange.bind(this)} />
+							<RaisedButton onClick={this.submitNewActivity.bind(this)} label="创建" primary={true} />
+							<RaisedButton onClick={this.cancel.bind(this)} label="取消" secondary={true} />
 					</form>
         </Modal>
 			</div>
