@@ -5,6 +5,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Clubs } from '../../imports/collection/clubs';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import {composeWithTracker} from 'react-komposer';
+import { createClubUser, createNormalUser, loginClubUser, loginNormalUser } from '../../imports/api/user_api';
 
 class App extends TrackerReact(Component) {
 	constructor(props) {
@@ -62,34 +63,25 @@ class App extends TrackerReact(Component) {
 		if (this.state.userLoginMode) {
 			const {userLoginEmail, userLoginPassword} = this.refs;
 			if (userLoginEmail.value && userLoginPassword.value) {
-				Meteor.loginWithPassword(userLoginEmail.value, userLoginPassword.value, function (error) {
-					if (error) {
-						alert('wrong password or email!');
-					} else {
-						const userId = Meteor.userId();
-						const url = `/user/${userId}`;
-						browserHistory.push(url);
-					}
+				loginNormalUser(userLoginEmail.value, userLoginPassword.value, function(userId) {
+					const url = `/user/${userId}`;
+					browserHistory.push(url);
 				});
 			} else {
 				alert('Invalid input!');
-				return;
 			}
 		} else {
 			const { userRegisterName, userRegisterEmail, userRegisterPassword, userRegisterPasswordConfirm } = this.refs;
 			const userObject = {
 				'email': userRegisterEmail.value,
 				'password': userRegisterPassword.value,
-				'profile': {'name' :userRegisterName.value},
+				'name': userRegisterName.value,
 				'isClubUser': false
 			};
 
-			Accounts.createUser(userObject, function(error, result){
-				if (error) {
-					console.log(error);
-				} else {
-					const userId = Meteor.userId();
-					const url = `/user/${userId}`;
+			createNormalUser(userObject, function(result) {
+				if (result) {
+					const url = `/user/${result}`;
 					browserHistory.push(url);
 				}
 			});
@@ -100,22 +92,11 @@ class App extends TrackerReact(Component) {
 		if (this.state.clubLoginMode) {
 			const {clubLoginEmail, clubLoginPassword} = this.refs;
 			if (clubLoginEmail.value && clubLoginPassword.value) {
-				Meteor.loginWithPassword(clubLoginEmail.value, clubLoginPassword.value, function (error) {
-					if (error) {
-						alert('wrong password or email!');
-					} else {
-						Meteor.subscribe('currentClub', function() {
-							const club = Clubs.findOne({'owner': Meteor.userId()});
-							if (!club) {
-								console.log("user %s doesn't have a club", Meteor.userId());
-								return;
-							}
-							const clubId = club._id;
-							const url = `/club/${clubId}`;
-							browserHistory.push(url);
-						});
-					}
-				})
+				loginClubUser(clubLoginEmail.value, clubLoginPassword.value, function(club) {
+					const clubId = club._id;
+					const url = `/club/${clubId}`;
+					browserHistory.push(url);
+				});
 			} else {
 				alert('Invalid input!');
 				return;
@@ -126,25 +107,16 @@ class App extends TrackerReact(Component) {
 			const userObject = {
 				'email': clubRegisterEmail.value,
 				'password': clubRegisterPassword.value,
-				'profile': {'city': clubRegisterCity.value},
-				'profile': {'name': clubRegisterName.value},
-				'isClubUser': true
+				'city': clubRegisterCity.value,
+				'name': clubRegisterName.value
 			};
 
-			Accounts.createUser(userObject, function(error){
-				if (error) {
-					console.log(error);
+			createClubUser(userObject, function(result) {
+				if (result) {
+					const url = `/club/${result}`;
+					browserHistory.push(url);
 				} else {
-					const club = {name: clubRegisterName.value, city: clubRegisterCity.value };
-					Meteor.call("clubs.insert", club, function(error, result){
-						if(error){
-							console.log("error", error);
-						}
-						if(result){
-							const url = `/club/${result}`;
-							browserHistory.push(url);
-						}
-					});
+					console.error("no result found for newly created club user");
 				}
 			});
 		}

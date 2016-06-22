@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {browserHistory} from 'react-router';
 
+//@Deprecated 
 class LoginRegisterPage extends Component {
 	constructor(props) {
 		super(props);

@@ -18,7 +18,6 @@ class UserSidePanel extends Component {
 	}
 	onImageUploadFinished(url) {
 		const userId = this.props.user._id;
-		const user = {profile: {avatarURL: url}};
 		Meteor.users.update({_id:userId}, { $set:{"profile.avatarURL":url} });
 		this.setState({
 			avatarURL: url

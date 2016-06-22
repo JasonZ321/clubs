@@ -10,12 +10,13 @@ class ActivityCommentCell extends Component {
 	render() {
 		const comment = this.props.comment;
 		const user = this.props.user;
-		if (user.isClubUser && this.props.club) {
+		const club = this.props.club;
+		if (user.isClubUser && club) {
 			return (
 				<div>
 					<ListItem
-		          leftAvatar={<Avatar src={this.props.club.avatarURL} />}
-		          primaryText={this.props.club.name}
+		          leftAvatar={<Avatar src={club.avatarURL} />}
+		          primaryText={club.name}
 		          secondaryText={
 		            this.renderCommentContent(comment)
 		          }
@@ -29,7 +30,7 @@ class ActivityCommentCell extends Component {
 				<div>
 					<ListItem
 		          leftAvatar={<Avatar src={user.profile.avatarURL} />}
-		          primaryText="user"
+		          primaryText={user.profile.name}
 		          secondaryText={
 		            this.renderCommentContent(comment)
 		          }
