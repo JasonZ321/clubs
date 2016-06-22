@@ -15,10 +15,16 @@ const styles = {
 
 class UserHeader extends Component {
 	onLogout() {
+		event.preventDefault();
 		Meteor.logout(function() {
 			console.log('Logged out');
 			browserHistory.push('/');
 		});
+	}
+	onNavigateToHome() {
+		event.preventDefault();
+		browserHistory.push('/');
+    location.reload();
 	}
 	handleTabChange(value, e, tab) {
 		browserHistory.push(tab.props.route);
@@ -40,10 +46,18 @@ class UserHeader extends Component {
 		</div>
 		);
 	}
+	renderLeftButtons() {
+		return (
+			<div>
+   			<a onClick={this.onLogout}>退出</a><br />
+				<a onClick={this.onNavigateToHome}>我的首页</a>
+   		</div>
+		);
+	}
 	render() {
 		return (
 			<div>
-				<AppBar style={styles.appBar} title="团团" iconStyleRight={styles.tabs} iconElementRight={this.renderUserTabs()} iconElementLeft={<a href='#' onClick={this.onLogout}>退出</a>}/>
+				<AppBar style={styles.appBar} title="团团" iconStyleRight={styles.tabs} iconElementRight={this.renderUserTabs()} iconElementLeft={this.renderLeftButtons()}/>
 	 		</div>
 	  );
 	}

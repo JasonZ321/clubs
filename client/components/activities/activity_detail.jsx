@@ -8,7 +8,7 @@ class ActivityDetail extends Component {
 		const activity = this.props.activity;
 		return (
 			<div className='col-md-6'>
-				<ActivityBrief activity={activity} />
+				<ActivityBrief activity={activity} club={this.props.club}/>
 				<ActivityGalleryContainer activityId={activity._id} />
 				<ActivityCommentsContainer activityId={activity} />
 	  	</div>

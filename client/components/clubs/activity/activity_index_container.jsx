@@ -1,5 +1,4 @@
 import React from 'react';
-import { Clubs } from '../../../../imports/collection/clubs';
 import { Activities } from '../../../../imports/collection/activities';
 import { composeWithTracker } from 'react-komposer';
 import ActivityIndex from './activity_index';

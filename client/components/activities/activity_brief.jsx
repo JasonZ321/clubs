@@ -41,7 +41,7 @@ class ActivityBrief extends Component {
 	}
 	render() {
 
-		const {avatarURL, location, clubId, start_date, end_date} = this.props.activity;
+		const {avatarURL, location, start_date, end_date, name} = this.props.activity;
 		return (
 			<div>
 					<h2>活动简介</h2>
@@ -51,7 +51,7 @@ class ActivityBrief extends Component {
 								<h3>{name}</h3>
 								<ul>
 									<li key='location' className="list-group-item"> 地点: {location} </li>
-									<li key='club' className="list-group-item"> 社团: {clubId}</li>
+									<li key='club' className="list-group-item"> 社团: {this.props.club.name}</li>
 									<li key='start_date' className="list-group-item"> 开始时间: {start_date.toDateString()}</li>
 									<li key='end_date' className="list-group-item"> 结束时间: {end_date.toDateString()}</li>
 								</ul>

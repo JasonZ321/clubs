@@ -49,7 +49,7 @@ class UserSidePanel extends Component {
 	render() {
 		return (
 			<div className='col-md-6'>
-				<div>{this.props.user.name}</div>
+				{this.props.user.profile && this.props.user.profile.name? <div>{this.props.user.profile.name}</div> : <div></div>}
 				<AvatarUploader onImageUpload={this.onImageUpload.bind(this)} avatarURL={this.state.avatarURL} />
 			</div>
 		)

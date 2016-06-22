@@ -11,7 +11,7 @@ function composer(props, onData) {
 		const activity = Activities.findOne({})
 		if (activity && Meteor.subscribe("club", activity.clubId).ready()) {
 			const club = Clubs.findOne({});
-			onData(null, {activity}, {club});
+			onData(null, {activity, club});
 		}
 	}
 }

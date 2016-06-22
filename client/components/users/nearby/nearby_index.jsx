@@ -18,6 +18,7 @@ class NearbyIndex extends Component {
 			return <ActivityIndexCellContainer key={activity._id} callbacks={props.activityCallbacks} activity={activity} authorized={authorized} joined={props.userActivities.indexOf(activity._id) >= 0}/>;
 		});
 	}
+	
 	render() {
 		return (
 			<div className='col-md-6'>
