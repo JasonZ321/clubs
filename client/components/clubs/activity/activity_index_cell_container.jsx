@@ -8,7 +8,6 @@ function composer(props, onData) {
 	const {activity, callbacks, joined, authorized} = props;
 	if (Meteor.subscribe("club", clubId).ready()) {
 		const club = Clubs.findOne({_id: clubId});
-		debugger;
 		onData(null, {club, activity, callbacks, joined, authorized});
 	}
 }

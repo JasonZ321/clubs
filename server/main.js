@@ -96,6 +96,10 @@ function publish() {
   Meteor.publish("activityGallery", function(activityId) {
     return ActivityImage.find({activityId});
   });
+
+  Meteor.publish("clubMembers", function(clubId) {
+    return ClubUser.find({clubId});
+  });
 }
 
 Meteor.startup(() => {
