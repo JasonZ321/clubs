@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Images } from '../collection/image';
+import { userJoinClub } from './club_api';
 export function createActivity(activity, callback) {
 	Meteor.call('activities.insert', activity, function(error, result) {
 		if (error) {
@@ -43,16 +44,18 @@ export function removeActivity(activity, callback) {
 	});
 }
 
-export function userJoinActivity(activityId, callback) {
+export function userJoinActivity(activityId, clubId, callback) {
 	const userId = Meteor.userId();
+	debugger;
 	Meteor.call("activity_user.insert", {activityId, userId}, function(error, result){
 		if(error){
 			console.log("error", error);
 		}
 		if(result){
 			console.log("User '%s' joined Activity '%s' ", userId, activityId);
+			userJoinClub(clubId);
 		}
-		if (callback) {
+		if(callback) {
 			callback(result);
 		}
 	});

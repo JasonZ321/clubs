@@ -4,9 +4,9 @@ import { Link } from 'react-router';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
-function renderJoinButton(authorized, joined, callbacks, targetId) {
+function renderJoinButton(authorized, joined, callbacks, activityId, clubId) {
 	if (authorized) {
-		return <JoinButton joined={joined} callbacks={callbacks} targetId={targetId} />
+		return <JoinButton joined={joined} callbacks={callbacks} activityId={activityId} clubId={clubId} />
 	}
 }
 
@@ -14,7 +14,7 @@ function renderJoinButton(authorized, joined, callbacks, targetId) {
 const ActivityIndexCell = ({club ,activity, callbacks, authorized, joined}) => {
 	const activityURL = `/club/${activity.clubId}/activity/${activity._id}`;
 	return (
-	  <Card>
+	  <Card style={{'marginBottom': 20}}>
 	    <CardHeader
 	      title={club.name}
 				subtitle={club.city}
@@ -30,7 +30,7 @@ const ActivityIndexCell = ({club ,activity, callbacks, authorized, joined}) => {
 	    </CardText>
 	    <CardActions>
 	      <FlatButton label="查看详细" linkButton={true} href={activityURL}/>
-	      {renderJoinButton(authorized, joined, callbacks, activity._id)}
+	      {renderJoinButton(authorized, joined, callbacks, activity._id, club._id)}
 	    </CardActions>
 	  </Card>
 	);

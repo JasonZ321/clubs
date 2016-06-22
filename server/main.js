@@ -43,6 +43,10 @@ function publish() {
     return Meteor.users.find({_id: userId});
   });
 
+  Meteor.publish("users", function(userIds){
+    return Meteor.users.find({_id : { $in : userIds }});
+  });
+
   Meteor.publish('currentClub', function() {
     return Clubs.find({owner: this.userId});
   });

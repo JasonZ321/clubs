@@ -12,38 +12,39 @@ class App extends TrackerReact(Component) {
 		super(props);
 		this.state = {
 			userLoginMode: true,
-			clubLoginMode: true,
-			userSubscription: Meteor.subscribe("currentUser"),
-			clubSubscription: Meteor.subscribe("currentClub")
+			clubLoginMode: true
 		}
 	}
 	componentWillUnmount() {
-		this.state.userSubscription.stop();
-		this.state.clubSubscription.stop();
+		Meteor.subscribe("currentUser").stop();
+		Meteor.subscribe("currentClub").stop();
 	}
 	componentWillMount() {
 		const userId = Meteor.userId();
-		if (userId && this.state.userSubscription.ready()) {
-			console.log(Meteor.user());
-			const currentUser = Meteor.user();
-			if (!currentUser) {
-				console.log("User not loaded");
-				return;
-			}
-			if (currentUser && currentUser.isClubUser && this.state.clubSubscription.ready()) {
-					const club = Clubs.findOne({'owner': currentUser._id});
-					if (!club) {
-						console.log(`user ${currentUser._id} doesn't have a club`);
-						return;
-					}
-					const clubId = club._id;
-					const url = `/club/${clubId}`;
+		if (userId) {
+			Meteor.subscribe('currentUser', function() {
+				console.log(Meteor.user());
+				const currentUser = Meteor.user();
+				if (!currentUser) {
+					console.log("User not loaded");
+					return;
+				}
+				if (currentUser && currentUser.isClubUser) {
+					Meteor.subscribe('currentClub', function() {
+						const club = Clubs.findOne({'owner': currentUser._id});
+						if (!club) {
+							console.log(`user ${currentUser._id} doesn't have a club`);
+							return;
+						}
+						const clubId = club._id;
+						const url = `/club/${clubId}`;
+						browserHistory.push(url);
+					});
+				} else {
+					const url = `/user/${Meteor.userId()}`;
 					browserHistory.push(url);
-			}
-			if (currentUser && !currentUser.isClubUser) {
-				const url = `/user/${Meteor.userId()}`;
-				browserHistory.push(url);
-			}
+				}
+			});
 		}
 	}
 	switchUserLoginMode(event) {

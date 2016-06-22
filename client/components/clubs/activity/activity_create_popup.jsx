@@ -65,6 +65,11 @@ class ActivityCreatePopup extends Component {
 		} else {
 			console.log("Must fill all fields");
 		}
+		this.setState({
+			avatarURL: null,
+			startDate: null,
+			endDate: null
+		});
 	}
 	cancel(event) {
 		event.preventDefault();

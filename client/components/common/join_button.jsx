@@ -13,18 +13,18 @@ class JoinButton extends Component {
 			joined: !this.state.joined
 		});
 		const { callbacks } = this.props;
-		const { targetId } = this.props;
+		const { activityId, clubId } = this.props;
 		if (callbacks.userJoinClub && !this.state.joined) {
-			callbacks.userJoinClub(targetId);
+			callbacks.userJoinClub(clubId);
 		}
 		if (callbacks.userQuitClub && this.state.joined) {
-			callbacks.userQuitClub(targetId);
+			callbacks.userQuitClub(clubId);
 		}
 		if (callbacks.userJoinActivity && !this.state.joined) {
-			callbacks.userJoinActivity(targetId);
+			callbacks.userJoinActivity(activityId, clubId);
 		}
 		if (callbacks.userQuiteActivity && this.state.joined) {
-			callbacks.userQuiteActivity(targetId);
+			callbacks.userQuiteActivity(activityId);
 		}
 	}
 	render() {
