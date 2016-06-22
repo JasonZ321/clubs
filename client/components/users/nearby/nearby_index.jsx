@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ActivityIndexCell from '../../clubs/activity/activity_index_cell';
+import ActivityIndexCellContainer from '../../clubs/activity/activity_index_cell_container';
 import ClubIndexCell from './club_index_cell';
 
 class NearbyIndex extends Component {
@@ -15,7 +15,7 @@ class NearbyIndex extends Component {
 		const props = this.props;
 		const authorized = this.context.authorized;
 		return props.activities.map((activity) => {
-			return <ActivityIndexCell key={activity._id} callbacks={props.activityCallbacks} activity={activity} authorized={authorized} joined={props.userActivities.indexOf(activity._id) >= 0}/>;
+			return <ActivityIndexCellContainer key={activity._id} callbacks={props.activityCallbacks} activity={activity} authorized={authorized} joined={props.userActivities.indexOf(activity._id) >= 0}/>;
 		});
 	}
 	render() {

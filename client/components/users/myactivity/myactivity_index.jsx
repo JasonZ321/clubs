@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import ActivityIndexCell from '../../clubs/activity/activity_index_cell';
+import ActivityIndexCellContainer from '../../clubs/activity/activity_index_cell_container';
 
 class MyactivityIndex extends Component {
 	renderActivities() {
 		const authorized = this.context.authorized;
 		const activityCallbacks = this.props.activityCallbacks;
 		return this.props.activities.map((activity) => {
-			return <ActivityIndexCell key={activity._id} callbacks={activityCallbacks} activity={activity} joined={true} authorized={authorized}/>;
+			return <ActivityIndexCellContainer key={activity._id} callbacks={activityCallbacks} activity={activity} joined={true} authorized={authorized}/>;
 		});
 	}
 	render() {

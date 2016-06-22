@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import FlatButton from 'material-ui/FlatButton';
 
 class JoinButton extends Component {
 	constructor(props) {
@@ -28,9 +29,9 @@ class JoinButton extends Component {
 	}
 	render() {
 		if (this.state.joined) {
-			return <div onClick={this.toggleJoinedState.bind(this)} className='alert alert-success'>已加入</div>
+			return <FlatButton onClick={this.toggleJoinedState.bind(this)} primary={true} label="已加入"/>
 		} else {
-			return <div onClick={this.toggleJoinedState.bind(this)} className='alert alert-info'>加入</div>
+			return <FlatButton onClick={this.toggleJoinedState.bind(this)} secondary={true} label="加入"/>
 		}
 	}
 }

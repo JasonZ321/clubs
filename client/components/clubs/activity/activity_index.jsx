@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ActivityIndexCell from './activity_index_cell';
+import ActivityIndexCellContainer from './activity_index_cell_container';
 import ActivityCreatePopup from './activity_create_popup';
 
 class ClubActivityIndex extends Component {
@@ -36,7 +36,7 @@ class ClubActivityIndex extends Component {
 		});
 	}
 	renderActivityList() {
-		return this.props.activities.map(activity => <ActivityIndexCell key={activity._id} activity={activity}/>);
+		return this.props.activities.map(activity => <ActivityIndexCellContainer key={activity._id} activity={activity}/>);
 	}
 	renderCreateActivityButton() {
 		if (this.context.authorized) {

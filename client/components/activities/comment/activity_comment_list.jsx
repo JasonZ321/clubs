@@ -4,7 +4,7 @@ import { List } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 
 function renderCommentList(comments) {
-	return comments.map(comment => <ActivityCommentCellContainer comment={comment}/>);
+	return comments.map(comment => <ActivityCommentCellContainer key={comment._id} comment={comment}/>);
 }
 
 const ActivityCommentList = (props) =>  {
