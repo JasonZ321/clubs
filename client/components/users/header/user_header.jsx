@@ -35,6 +35,7 @@ class UserHeader extends Component {
 		const nearbyURL = `/user/${userId}/nearby`;
 		const myactivityURL = `/user/${userId}/myactivity`;
 		const myclubURL = `/user/${userId}/myclub`;
+    const friendsURL = `/user/${userId}/friends`;
 		return (
 			<div>
 				<Tabs onChange={this.handleTabChange.bind(this)}>
@@ -42,6 +43,7 @@ class UserHeader extends Component {
 					<Tab label='附近' route={nearbyURL}></Tab>
 					<Tab label='我的社团' route={myclubURL}></Tab>
 					<Tab label='我的活动' route={myactivityURL}></Tab>
+          <Tab label='好友' route={friendsURL}></Tab>
 			 	</Tabs>
 		</div>
 		);

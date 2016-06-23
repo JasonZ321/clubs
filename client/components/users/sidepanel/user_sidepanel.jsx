@@ -20,7 +20,22 @@ class UserSidePanel extends Component {
 				relationship: this.props.relationship
 			}
 		}
-
+	}
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.user._id === this.props.user._id) {
+			return;
+		}
+		if (nextProps.user && nextProps.user.profile) {
+			this.setState({
+				avatarURL: nextProps.user.profile.avatarURL,
+				relationship: nextProps.relationship
+			});
+		} else {
+			this.setState({
+				avatarURL: null,
+				relationship: nextProps.relationship
+			});
+		}
 	}
 	onImageUploadFinished(url) {
 		const userId = this.props.user._id;
@@ -67,7 +82,6 @@ class UserSidePanel extends Component {
 		}.bind(this));
 	}
 	renderUserName() {
-		debugger;
 		if (this.state.relationship === 'friend') {
 			return <FlatButton secondary={true}  label="取消好友" onClick={this.onRemoveFriend.bind(this)}/>;
 		}

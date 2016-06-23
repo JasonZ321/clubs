@@ -7,7 +7,6 @@ function composer(props, onData) {
 		const userIds = ClubUser.find({clubId}, { 'sort': {'createdAt': 1 }}).fetch().map(clubUser => clubUser.userId);
 		// I didn't fetch users directly from server because it will always return the user current logged in.
 		if (Meteor.subscribe("users", userIds).ready()) {
-			debugger;
 			const users = Meteor.users.find({_id : { $in : userIds }}).fetch();
 			onData(null, {users});
 		}

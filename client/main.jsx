@@ -14,6 +14,7 @@ import ActivityDetailContainer from './components/activities/activity_detail_con
 import ClubManagement from './components/clubs/club_management_page';
 import ClubPostIndex from './components/clubs/club_post_index';
 import ClubAppContainer from './components/clubs/club_app_container';
+import UserFriendListContainer from './components/users/friends/friend_list_container.jsx';
 import { Images } from '../imports/collection/image';
 import { Clubs } from '../imports/collection/clubs';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
@@ -39,6 +40,7 @@ const routes = (
       <Route path='/user/:userId/nearby' component={UserNearbyIndexContainer} />
       <Route path='/user/:userId/myclub' component={UserMyclubIndexContainer} />
       <Route path='/user/:userId/myactivity' component={UserMyactivityIndexContainer} />
+      <Route path='/user/:userId/friends' component={UserFriendListContainer} />
     </Route>
 
   </Router>
