@@ -1,6 +1,7 @@
 import { Images } from '../collection/image';
 import { Meteor } from 'meteor/meteor';
 import { Clubs } from '../collection/clubs';
+import { Friends } from '../collection/friends';
 
 export function createClubUser({email, password, city, name}, callback) {
 	Accounts.createUser({email, password, isClubUser: true}, function(error){
@@ -71,4 +72,31 @@ export function loginNormalUser(email, password, callback) {
 			}
 		}
 	});
+}
+
+export function addFriend(friend, callback) {
+	const self = Meteor.userId();
+	if (friend === self) {
+		console.log("Tried to add friend to yoursef %s", self);
+		return;
+	}
+	Meteor.call("friends.add", {self, friend});
+	Meteor.call("friends.add", {self: friend, friend: self});
+	console.log("User %s and %s are friends now", self, friend);
+	if (callback) {
+		callback();
+	}
+}
+
+export function removeFriend(friend, callback) {
+	const self = Meteor.userId();
+	if (friend === self) {
+		console.log("Tried to remove frient to yoursef %s", self);
+	}
+	Meteor.call("friends.remove", {self, friend});
+	Meteor.call("friends.remove", {self: friend, friend: self});
+	console.log("User %s and %s are not friends any more", self, friend);
+	if (callback) {
+		callback();
+	}
 }

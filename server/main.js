@@ -6,6 +6,7 @@ import { ActivityUser } from '../imports/collection/activity_user';
 import { ClubUser } from '../imports/collection/club_user';
 import { Comments } from '../imports/collection/comments';
 import { ActivityImage } from '../imports/collection/activity_image';
+import { Friends } from '../imports/collection/friends';
 
 function setUpImageServer() {
   Images.allow({
@@ -39,6 +40,7 @@ function publish() {
     return Meteor.users.find({_id: this.userId});
   });
 
+  //TODO needs to be replaced by users subscription
   Meteor.publish('user', function(userId) {
     return Meteor.users.find({_id: userId});
   });
@@ -103,6 +105,14 @@ function publish() {
 
   Meteor.publish("clubMembers", function(clubId) {
     return ClubUser.find({clubId});
+  });
+
+  Meteor.publish("activityMembers", function(activityId) {
+    return ActivityUser.find({activityId});
+  });
+
+  Meteor.publish("friends", function(self){
+    return Friends.find({self});
   });
 }
 

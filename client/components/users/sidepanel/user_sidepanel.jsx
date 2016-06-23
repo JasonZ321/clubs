@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import AvatarUploader from '../../common/avatar_uploader';
+import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+import SocialPersonAdd from 'material-ui/svg-icons/social/person-add';
 import { Images } from '../../../../imports/collection/image';
+import { addFriend, removeFriend } from '../../../../imports/api/user_api';
 
 class UserSidePanel extends Component {
 	constructor(props) {
 		super(props);
 		if (this.props.user && this.props.user.profile) {
 			this.state = {
-				avatarURL: this.props.user.profile.avatarURL
+				avatarURL: this.props.user.profile.avatarURL,
+				relationship: this.props.relationship
 			};
 		} else {
 			this.state = {
-				avatarURL: null
+				avatarURL: null,
+				relationship: this.props.relationship
 			}
 		}
 
@@ -46,10 +52,37 @@ class UserSidePanel extends Component {
 			});
 		});
 	}
+	onAddFriend() {
+		addFriend(this.props.user._id, function() {
+			this.setState({
+				relationship: 'friend'
+			});
+		}.bind(this));
+	}
+	onRemoveFriend() {
+		removeFriend(this.props.user._id, function() {
+			this.setState({
+				relationship: 'stranger'
+			});
+		}.bind(this));
+	}
+	renderUserName() {
+		debugger;
+		if (this.state.relationship === 'friend') {
+			return <FlatButton secondary={true}  label="取消好友" onClick={this.onRemoveFriend.bind(this)}/>;
+		}
+		if (this.state.relationship === 'stranger') {
+			return <RaisedButton icon={<SocialPersonAdd />} onClick={this.onAddFriend.bind(this)}/>;
+		}
+		return <div></div>;
+	}
 	render() {
 		return (
 			<div className='col-md-6'>
-				{this.props.user.profile && this.props.user.profile.name? <div>{this.props.user.profile.name}</div> : <div></div>}
+				<div>
+		   		<span style={{'marginRight': 20}}>{this.props.user.profile.name}</span>
+					{this.renderUserName()}
+		   	</div>
 				<AvatarUploader onImageUpload={this.onImageUpload.bind(this)} avatarURL={this.state.avatarURL} />
 			</div>
 		)

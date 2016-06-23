@@ -13,13 +13,13 @@ function navigateToUser(user) {
 function renderList(users) {
 	return users.map(user => <ListItem key={user._id} onClick={() => {navigateToUser(user)}} primaryText={user.profile.name} leftAvatar={<Avatar src={user.profile.avatarURL} />} />)
 }
-const ClubMembersSideList = (props) => {
+const ActivityUserList = (props) => {
 	return (
 		<List>
-			<Subheader>社团成员</Subheader>
+			<Subheader>参加者</Subheader>
 			{renderList(props.users)}
 		</List>
 	);
 }
 
-export default ClubMembersSideList;
+export default ActivityUserList;

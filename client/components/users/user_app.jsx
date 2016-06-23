@@ -16,13 +16,13 @@ class UserApp extends Component {
 		});
 	}
 	render() {
-
+		debugger;
 		return (
 			<MuiThemeProvider muiTheme={getMuiTheme()}>
 			<div>
 				<UserHeader user={this.props.user} onLogout={this.onLogout}/>
 					<div className='full col-sm-9'>
-						<UserSidepanel user={this.props.user}/>
+						<UserSidepanel user={this.props.user} relationship={this.props.relationship}/>
 							{this.props.children}
 					</div>
 			</div>
