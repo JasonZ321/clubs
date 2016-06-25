@@ -16,7 +16,6 @@ function composer(props, onData) {
 			} else {
 				onData(null, {sender, receiver, messages: []});
 			}
-
 		}
 	}
 }
