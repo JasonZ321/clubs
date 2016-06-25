@@ -12,14 +12,29 @@ class FriendList extends Component {
 		const url = `/user/${friend._id}`;
 		browserHistory.push(url);
 	}
+	//TODO click avatar to start chat, will replace this in the future.
+	navigateToChat(senderId, receiverId) {
+		const url = `/user/${senderId}/messages/${receiverId}`;
+		browserHistory.push(url);
+	}
 	renderFriendCell(friend) {
 		if (this.context.authorized) {
-			return (<ListItem key={friend._id}
-				primaryText={friend.profile.name} leftAvatar={<Avatar onClick={() => {this.navigateToUser(friend)}} src={friend.profile.avatarURL} />}
-				rightIconButton={	<FlatButton secondary={true} label="移除好友" onClick={()=>{removeFriend(friend._id)}}/>} />);
+			return (
+				<div key={friend._id}>
+						<ListItem
+						primaryText={friend.profile.name} leftAvatar={<Avatar onClick={() => {this.navigateToChat(this.props.userId, friend._id)}} src={friend.profile.avatarURL} />}
+						rightIconButton={	<FlatButton secondary={true} label="移除好友" onClick={()=>{removeFriend(friend._id)}}/>} />
+					 	<Divider />
+				</div>
+			);
 		}
-		return (<ListItem key={friend._id}
-			primaryText={friend.profile.name} leftAvatar={<Avatar onClick={() => {this.navigateToUser(friend)}} src={friend.profile.avatarURL} />} />);
+		return (
+			<div key={friend._id}>
+				<ListItem
+				primaryText={friend.profile.name} leftAvatar={<Avatar onClick={() => {this.navigateToUser(friend)}} src={friend.profile.avatarURL} />} />
+				<Divider />
+			</div>
+		);
 	}
 	renderList(friends) {
 		if (!friends) {

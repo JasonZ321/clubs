@@ -15,6 +15,8 @@ import ClubManagement from './components/clubs/club_management_page';
 import ClubPostIndex from './components/clubs/club_post_index';
 import ClubAppContainer from './components/clubs/club_app_container';
 import UserFriendListContainer from './components/users/friends/friend_list_container.jsx';
+import UserMessageListContainer from './components/users/message/message_list_container';
+import UserMessageChatContainer from './components/users/message/message_chat_container';
 import { Images } from '../imports/collection/image';
 import { Clubs } from '../imports/collection/clubs';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
@@ -41,6 +43,8 @@ const routes = (
       <Route path='/user/:userId/myclub' component={UserMyclubIndexContainer} />
       <Route path='/user/:userId/myactivity' component={UserMyactivityIndexContainer} />
       <Route path='/user/:userId/friends' component={UserFriendListContainer} />
+      <Route path='/user/:userId/messages' component={UserMessageListContainer} />
+      <Route path='/user/:userId/messages/:userId' component={UserMessageChatContainer} />
     </Route>
 
   </Router>

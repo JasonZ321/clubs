@@ -16,7 +16,6 @@ class UserApp extends Component {
 		});
 	}
 	render() {
-		debugger;
 		return (
 			<MuiThemeProvider muiTheme={getMuiTheme()}>
 			<div>

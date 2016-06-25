@@ -2,7 +2,6 @@ import { Images } from '../collection/image';
 import { Meteor } from 'meteor/meteor';
 import { Clubs } from '../collection/clubs';
 import { Friends } from '../collection/friends';
-import { Messages } from '../collection/messages';
 
 export function createClubUser({email, password, city, name}, callback) {
 	Accounts.createUser({email, password, isClubUser: true}, function(error){
@@ -103,22 +102,22 @@ export function removeFriend(friend, callback) {
 }
 
 export function sendMessage(receiver, content) {
-	Meteor.call("messages.send", {receiver, content}, function(error, result){
+	Meteor.call("message.send", {receiver, content}, function(error, result){
 		if(error){
 			console.log("error", error);
 		}
 		if(result){
-			console.log("Messages %s send", content);
+			console.log("Message %s send", content);
 		}
 	});
 }
 
-export function removeMessages(receiver) {
-	Meteor.call("messages.remove", receiver, function(error, result){
+export function removeChat(receiver) {
+	Meteor.call("chats.remove", receiver, function(error, result){
 		if(error){
 			console.log("error", error);
 		} else {
-			console.log("Messages removed");
+			console.log("Chat removed");
 		}
 	});
 }

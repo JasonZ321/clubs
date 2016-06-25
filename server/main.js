@@ -7,6 +7,7 @@ import { ClubUser } from '../imports/collection/club_user';
 import { Comments } from '../imports/collection/comments';
 import { ActivityImage } from '../imports/collection/activity_image';
 import { Friends } from '../imports/collection/friends';
+import { Chats } from '../imports/collection/chats';
 
 function setUpImageServer() {
   Images.allow({
@@ -113,6 +114,14 @@ function publish() {
 
   Meteor.publish("friends", function(self){
     return Friends.find({self});
+  });
+
+  Meteor.publish("chat", function(sender, receiver){
+    return Chats.find({sender, receiver});
+  });
+
+  Meteor.publish("chats", function(sender) {
+    return Chats.find({sender});
   });
 }
 
