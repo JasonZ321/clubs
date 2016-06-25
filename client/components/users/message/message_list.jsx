@@ -11,6 +11,7 @@ class MessageList extends Component {
 		if (!chats) {
 			return <div>你暂无消息</div>;
 		}
+
 		return chats.map(chat => 	<MessageListCellContainer chat={chat} /> );
 	}
 	render() {
