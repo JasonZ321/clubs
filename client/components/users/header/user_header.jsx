@@ -36,6 +36,7 @@ class UserHeader extends Component {
 		const myactivityURL = `/user/${userId}/myactivity`;
 		const myclubURL = `/user/${userId}/myclub`;
     const friendsURL = `/user/${userId}/friends`;
+    const messagesURL = `/user/${userId}/messages`;
 		return (
 			<div>
 				<Tabs onChange={this.handleTabChange.bind(this)}>
@@ -44,6 +45,7 @@ class UserHeader extends Component {
 					<Tab label='我的社团' route={myclubURL}></Tab>
 					<Tab label='我的活动' route={myactivityURL}></Tab>
           <Tab label='好友' route={friendsURL}></Tab>
+          <Tab label='消息' route={messagesURL}></Tab>
 			 	</Tabs>
 		</div>
 		);

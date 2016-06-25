@@ -4,7 +4,7 @@ import { Chats } from '../../../../imports/collection/chats';
 function composer(props, onData) {
 	const sender = Meteor.userId();
 	if (Meteor.subscribe("chats", sender).ready()) {
-		const chats = Chats.find({sender}, {sort: {'createdAt': -1}});
+		const chats = Chats.find({sender}, {sort: {'createdAt': -1}}).fetch();
 		onData(null, {chats});
 	}
 }
