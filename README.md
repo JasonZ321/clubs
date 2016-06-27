@@ -21,10 +21,7 @@ Describe what we will do at next stage
  * 社团可以发布公告和文章，统一显示在文章tab
  * 添加一个新tab『论坛』到社团页面，用来显示一个微型论坛（类似贴吧），用户可以发布信息和讨论。
  * 完善安全系统
-<<<<<<< HEAD
  * 使用 Typescript 替代 javascript
-=======
->>>>>>> origin/master
 
 # Useful links
 * Meteor guide https://guide.meteor.com/
