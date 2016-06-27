@@ -7,7 +7,6 @@ function composer(props, onData) {
 		const senderId = chat.sender;
 		const receiver = Meteor.users.findOne({"_id": chat.receiver});
 		const lastMesssage = chat.messages[chat.messages.length - 1];
-		debugger
 		onData(null, {senderId, receiver, lastMesssage});
 	}
 }

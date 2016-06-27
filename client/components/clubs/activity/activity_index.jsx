@@ -3,6 +3,7 @@ import ActivityIndexCellContainer from './activity_index_cell_container';
 import ActivityCreatePopup from './activity_create_popup';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import { createActivity } from '../../../../imports/api/activity_api';
 
 class ClubActivityIndex extends Component {
 	constructor(props) {
@@ -26,15 +27,9 @@ class ClubActivityIndex extends Component {
 	cancelActivityCreate() {
 		this.closePopup();
 	}
-	createActivity(activity) {
-		const component = this;
-		Meteor.call('activities.insert', activity, function(error, result) {
-			if (error) {
-				console.log("Error in creating activity");
-			} else {
-				console.log("Activity {} created.", activity.name);
-			}
-			component.closePopup();
+	onCreateActivity(activity) {
+		createActivity(activity, () => {
+			this.closePopup();
 		});
 	}
 	renderActivityList() {
@@ -45,7 +40,7 @@ class ClubActivityIndex extends Component {
 				return (
 					<div style={{'text-align': 'right', 'marginBottom': 20}} >
 						<FloatingActionButton onClick={this.openPopup} ><ContentAdd /></FloatingActionButton>
-						<ActivityCreatePopup isOpen={this.state.popupOpen} onCancel={this.cancelActivityCreate.bind(this)} onSubmit={this.createActivity.bind(this)}/>
+						<ActivityCreatePopup isOpen={this.state.popupOpen} onCancel={this.cancelActivityCreate.bind(this)} onSubmit={this.onCreateActivity.bind(this)}/>
 			    </div>
 				);
 		}

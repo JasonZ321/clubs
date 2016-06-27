@@ -2,48 +2,37 @@ import React, { Component } from 'react';
 import AvatarUploader from '../../common/avatar_uploader';
 import ClubDescriptionPanel from './club_description_panel';
 import ClubMembersSidepanelContainer from './club_members_sidepanel_container';
+import { createImageFiles } from '../../../../imports/api/image_api';
+import { updateClub } from '../../../../imports/api/club_api';
 import { Images } from '../../../../imports/collection/image';
 
 class ClubSidePanel extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			avatarURL: this.props.club.avatarURL
-		};
+		this.mapPropsToState(props);
+	}
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.club._id === this.props.club._id) {
+			return;
+		}
+		this.mapPropsToState(nextProps);
+	}
+	mapPropsToState(props) {
+		const { club: { avatarURL } } = props;
+		this.state = { avatarURL };
 	}
 	onImageUploadFinished(url) {
 		const clubId = this.props.club._id;
 		const club = {avatarURL: url};
-		Meteor.call("clubs.update", clubId, club, function(error, result) {
-			if(error) {
-				console.log("error", error);
-			}
-		});
-		this.setState({
-			avatarURL: url
+		updateClub(clubId, club, () => {
+			this.setState({
+				avatarURL: url
+			});
 		});
 	}
 	onImageUpload(files) {
-		let component = this;
-		console.log(this.state.avatarURL);
-		_.each(files, function(file) {
-			file.owner = Meteor.userId();
-			Images.insert(file, function(err, fileObj){
-				if (err) {
-					console.log(err);
-				} else {
-					const imageURL = 'http://localhost:3000/cfs/files/images/' + fileObj._id;
-
-					fileObj.on('uploaded', Meteor.bindEnvironment(function() {
-						// TODO: image still not uploaded at this point for some reason.
-						// work around set time out
-						setTimeout(function () {
-								component.onImageUploadFinished(imageURL)
-						}, 1000);
-
-					}));
-				}
-			});
+		createImageFiles(files, (imageURL) => {
+			this.onImageUploadFinished(imageURL);
 		});
 	}
 	render() {

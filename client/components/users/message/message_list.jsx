@@ -12,7 +12,7 @@ class MessageList extends Component {
 			return <div>你暂无消息</div>;
 		}
 
-		return chats.map(chat => 	<MessageListCellContainer chat={chat} /> );
+		return chats.map(chat => 	<MessageListCellContainer key={chat._id} chat={chat} /> );
 	}
 	render() {
 		return (

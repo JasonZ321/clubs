@@ -7,7 +7,6 @@ import UserAppContainer from './components/users/user_app_container';
 import UserNearbyIndexContainer from './components/users/nearby/nearby_index_container';
 import UserMyclubIndexContainer from './components/users/myclub/myclub_index_container';
 import UserMyactivityIndexContainer from './components/users/myactivity/myactivity_index_container';
-import LoginRegisterPage from './components/login/login_register_page';
 import ActivityIndexContainer from './components/clubs/activity/activity_index_container';
 import ClubActivityIndexContainer from './components/clubs/activity/activity_index_container';
 import ActivityDetailContainer from './components/activities/activity_detail_container';

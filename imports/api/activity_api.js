@@ -46,7 +46,6 @@ export function removeActivity(activity, callback) {
 
 export function userJoinActivity(activityId, clubId, callback) {
 	const userId = Meteor.userId();
-	debugger;
 	Meteor.call("activity_user.insert", {activityId, userId}, function(error, result){
 		if(error){
 			console.log("error", error);

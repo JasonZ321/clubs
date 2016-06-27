@@ -5,6 +5,7 @@ import { Images } from '../../../../imports/collection/image';
 import DatePicker from 'material-ui/DatePicker';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import { createImageFiles } from '../../../../imports/api/image_api';
 
 class ActivityCreatePopup extends Component {
 	constructor(props) {
@@ -26,33 +27,15 @@ class ActivityCreatePopup extends Component {
 		});
 	}
 	onImageUpload(files) {
-		let component = this;
-		_.each(files, function(file) {
-			file.owner = Meteor.userId();
-			Images.insert(file, function(err, fileObj){
-				if (err) {
-					console.log(err);
-				} else {
-					const imageURL = 'http://localhost:3000/cfs/files/images/' + fileObj._id;
-
-					fileObj.on('uploaded', Meteor.bindEnvironment(function() {
-						// TODO: image still not uploaded at this point for some reason.
-						// work around set time out
-						setTimeout(function () {
-								component.setState({
-									avatarURL: imageURL
-								});
-						}, 1000);
-
-					}));
-				}
+		createImageFiles(files, (imageURL) => {
+			this.setState({
+				avatarURL: imageURL
 			});
 		});
 	}
 	submitNewActivity(event) {
 		event.preventDefault();
 		const { name, location } = this.refs;
-
 		const activity = {
 			avatarURL: this.state.avatarURL,
 			name: name.getValue(),

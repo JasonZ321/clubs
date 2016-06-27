@@ -5,66 +5,47 @@ import FlatButton from 'material-ui/FlatButton';
 import SocialPersonAdd from 'material-ui/svg-icons/social/person-add';
 import { Images } from '../../../../imports/collection/image';
 import { addFriend, removeFriend } from '../../../../imports/api/user_api';
+import { createImageFiles } from '../../../../imports/api/image_api';
+import { updateUser } from '../../../../imports/api/user_api';
 
 class UserSidePanel extends Component {
 	constructor(props) {
 		super(props);
-		if (this.props.user && this.props.user.profile) {
-			this.state = {
-				avatarURL: this.props.user.profile.avatarURL,
-				relationship: this.props.relationship
-			};
-		} else {
-			this.state = {
-				avatarURL: null,
-				relationship: this.props.relationship
-			}
-		}
+		this.mapPropsToState(props);
 	}
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.user._id === this.props.user._id) {
 			return;
 		}
-		if (nextProps.user && nextProps.user.profile) {
-			this.setState({
-				avatarURL: nextProps.user.profile.avatarURL,
-				relationship: nextProps.relationship
-			});
+		this.mapPropsToState(nextProps);
+	}
+	mapPropsToState(props) {
+		// equals const profile = props.user.profile.avatarURL
+		const {relationship, user, user:{profile:{avatarURL}}} = props;
+		if (user && avatarURL) {
+			this.state = {
+				avatarURL: avatarURL,
+				relationship: relationship
+			};
 		} else {
-			this.setState({
+			this.state = {
 				avatarURL: null,
-				relationship: nextProps.relationship
-			});
+				relationship: relationship
+			}
 		}
 	}
 	onImageUploadFinished(url) {
 		const userId = this.props.user._id;
-		Meteor.users.update({_id:userId}, { $set:{"profile.avatarURL":url} });
-		this.setState({
-			avatarURL: url
+		const user = {'profile.avatarURL': url};
+		updateUser(userId, user, () => {
+			this.setState({
+				avatarURL: url
+			});
 		});
 	}
 	onImageUpload(files) {
-		let component = this;
-		console.log(this.state.avatarURL);
-		_.each(files, function(file) {
-			file.owner = Meteor.userId();
-			Images.insert(file, function(err, fileObj){
-				if (err) {
-					console.log(err);
-				} else {
-					const imageURL = 'http://localhost:3000/cfs/files/images/' + fileObj._id;
-
-					fileObj.on('uploaded', Meteor.bindEnvironment(function() {
-						// TODO: image still not uploaded at this point for some reason.
-						// work around set time out
-						setTimeout(function () {
-								component.onImageUploadFinished(imageURL)
-						}, 1000);
-
-					}));
-				}
-			});
+		createImageFiles(files, (imageURL) => {
+			this.onImageUploadFinished(imageURL);
 		});
 	}
 	onAddFriend() {

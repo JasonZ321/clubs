@@ -2,6 +2,7 @@ import { Images } from '../collection/image';
 import { Meteor } from 'meteor/meteor';
 import { Clubs } from '../collection/clubs';
 import { Friends } from '../collection/friends';
+import { IMAGE_BASE_URL } from '../util/constants';
 
 export function createClubUser({email, password, city, name}, callback) {
 	Accounts.createUser({email, password, isClubUser: true}, function(error){
@@ -72,6 +73,13 @@ export function loginNormalUser(email, password, callback) {
 			}
 		}
 	});
+}
+
+export function updateUser(userId, user, callback) {
+	Meteor.users.update({_id:userId}, { $set:user});
+	if (callback) {
+		callback();
+	}
 }
 
 export function addFriend(friend, callback) {
