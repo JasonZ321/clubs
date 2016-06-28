@@ -16,8 +16,6 @@ import ClubAppContainer from './components/clubs/club_app_container';
 import UserFriendListContainer from './components/users/friends/friend_list_container.jsx';
 import UserMessageListContainer from './components/users/message/message_list_container';
 import UserMessageChatContainer from './components/users/message/message_chat_container';
-import { Images } from '../imports/collection/image';
-import { Clubs } from '../imports/collection/clubs';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';

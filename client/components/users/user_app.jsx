@@ -5,7 +5,17 @@ import { browserHistory } from 'react-router';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+/**
+ * @class
+ * @summary - Container of normal user pages
+ */
 class UserApp extends Component {
+	/**
+	 * getChildContext
+	 * @summary define context property 'authorized'
+	 * so that all its children can access 'authorized' property
+	 * to know if user is logged in.
+	 */
 	getChildContext() {
 		return {authorized: this.props.authorized};
 	}

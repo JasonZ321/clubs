@@ -6,6 +6,12 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import {composeWithTracker} from 'react-komposer';
 import { createClubUser, createNormalUser, loginClubUser, loginNormalUser } from '../../imports/api/user_api';
 
+/**
+ * @class - Entry point of clubs App
+ * If user signed in, redirect to clubs user main page or normal user main page.
+ * If user not signed in, render the login sign up page.
+ * Using TrackerReact to make App component a Reactive component for synchronizing data
+ */
 class App extends TrackerReact(Component) {
 	constructor(props) {
 		super(props);
@@ -18,6 +24,9 @@ class App extends TrackerReact(Component) {
 		Meteor.subscribe("currentUser").stop();
 		Meteor.subscribe("currentClub").stop();
 	}
+	/**
+	 * redirect if user not logged in.
+	 */
 	componentWillMount() {
 		const userId = Meteor.userId();
 		if (userId) {
@@ -61,6 +70,12 @@ class App extends TrackerReact(Component) {
 	renderSwitch(loginMode, switchLoginMode) {
 		return loginMode ? <a href="#" className="btn btn-info" onClick={switchLoginMode.bind(this)}>登录</a> : <a href="#" className="btn btn-info" onClick={switchLoginMode.bind(this)}>注册</a>
 	}
+
+	/**
+	 * onSubmitUser - Handler of submit loggin form or sign up form for normal user
+	 *
+	 * @param  {type} event submit handler
+	 */
 	onSubmitUser(event) {
 		event.preventDefault();
 		if (this.state.userLoginMode) {
@@ -90,6 +105,12 @@ class App extends TrackerReact(Component) {
 			});
 		}
 	}
+
+	/**
+	 * onSubmitClub - Handler of submit loggin form or sign up form for club user
+	 *
+	 * @param  {type} event submit handler
+	 */
 	onSubmitClub(event) {
 		event.preventDefault();
 		if (this.state.clubLoginMode) {
@@ -123,8 +144,11 @@ class App extends TrackerReact(Component) {
 				}
 			});
 		}
-
 	}
+
+	/**
+	 * renderUserForm - render method of normal user form
+	 */
 	renderUserForm() {
 		if (this.state.userLoginMode) {
 			return (
@@ -160,6 +184,10 @@ class App extends TrackerReact(Component) {
 			)
 		}
 	}
+
+	/**
+	 * renderClubForm - render method of club user form
+	 */
 	renderClubForm() {
 		if (this.state.clubLoginMode) {
 			return (

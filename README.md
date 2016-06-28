@@ -18,7 +18,7 @@ Describe current behavior of the app.
 
 # Next stage
 Describe what we will do at next stage
- * 社团可以发布公告和文章，统一显示在文章tab
+ * 社团可以发布公告和文章，统一显示在文章tab。公告会直接推送到用户的消息页面。
  * 添加一个新tab『论坛』到社团页面，用来显示一个微型论坛（类似贴吧），用户可以发布信息和讨论。
  * 完善安全系统
  * 使用 Typescript 替代 javascript
@@ -29,4 +29,4 @@ Describe what we will do at next stage
 * Comparison of react-komposer and TrackerReact https://www.discovermeteor.com/blog/data-loading-react/
 * React official https://facebook.github.io/react/
 * React Native official https://facebook.github.io/react-native/
-* Typescript offical https://basarat.gitbooks.io/typescript/content/docs/
+* Typescript official https://basarat.gitbooks.io/typescript/content/docs/

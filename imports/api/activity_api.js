@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Images } from '../collection/image';
 import { userJoinClub } from './club_api';
+
 export function createActivity(activity, callback) {
 	Meteor.call('activities.insert', activity, function(error, result) {
 		if (error) {

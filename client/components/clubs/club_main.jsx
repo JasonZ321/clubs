@@ -7,6 +7,10 @@ import { browserHistory } from 'react-router';
 import ClubHeader from './header/club_header';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
+
+/**
+ *@class 社团用户主页
+ */
 class ClubMain extends TrackerReact(Component) {
 	render() {
 		if (this.context.authorized) {
