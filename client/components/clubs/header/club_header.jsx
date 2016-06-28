@@ -40,7 +40,7 @@ class ClubHeader extends Component {
 				<Tabs onChange={this.handleTabChange.bind(this)}>
 					<Tab label='首页' route={mainURL}></Tab>
 					<Tab label='活动' route={activityURL}></Tab>
-					<Tab label='文章' route={postURL}></Tab>
+					<Tab label='发布' route={postURL}></Tab>
 					<Tab label='管理' route={managementURL}></Tab>
 			 	</Tabs>
 		</div>
