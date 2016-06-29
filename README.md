@@ -30,3 +30,4 @@ Describe what we will do at next stage
 * React official https://facebook.github.io/react/
 * React Native official https://facebook.github.io/react-native/
 * Typescript official https://basarat.gitbooks.io/typescript/content/docs/
+* Air BNB js coding style https://github.com/airbnb/javascript
