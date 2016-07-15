@@ -11,7 +11,7 @@ import ActivityIndexContainer from './components/clubs/activity/activity_index_c
 import ClubActivityIndexContainer from './components/clubs/activity/activity_index_container';
 import ActivityDetailContainer from './components/activities/activity_detail_container';
 import ClubManagement from './components/clubs/club_management_page';
-import ClubPostIndex from './components/clubs/club_post_index';
+import ClubPostIndexContainer from './components/clubs/post/club_post_index_container';
 import ClubAppContainer from './components/clubs/club_app_container';
 import UserFriendListContainer from './components/users/friends/friend_list_container.jsx';
 import UserMessageListContainer from './components/users/message/message_list_container';
@@ -31,7 +31,7 @@ const routes = (
       <IndexRoute component={ClubMain} />
       <Route path='/club/:clubId/activities' component={ClubActivityIndexContainer} />
       <Route path='/club/:clubId/activity/:activityId' component={ActivityDetailContainer} />
-      <Route path='/club/:clubId/posts' component={ClubPostIndex} />
+      <Route path='/club/:clubId/posts' component={ClubPostIndexContainer} />
       <Route path='/club/:clubId/management' component={ClubManagement} />
     </Route>
     <Route path="/user/:userId" component={UserAppContainer} >

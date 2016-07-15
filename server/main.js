@@ -8,6 +8,8 @@ import { Comments } from '../imports/collection/comments';
 import { ActivityImage } from '../imports/collection/activity_image';
 import { Friends } from '../imports/collection/friends';
 import { Chats } from '../imports/collection/chats';
+import { Announcements } from '../imports/collection/announcements';
+import { Articles } from '../imports/collection/articles';
 
 function setUpImageServer() {
   Images.allow({
@@ -122,6 +124,14 @@ function publish() {
 
   Meteor.publish("chats", function(sender) {
     return Chats.find({sender});
+  });
+
+  Meteor.publish("announcements", function(clubId){
+    return Announcements.find({clubId});
+  });
+
+  Meteor.publish("articles", function(clubId){
+    return Articles.find({clubId});
   });
 }
 
