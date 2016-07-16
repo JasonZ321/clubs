@@ -6,7 +6,9 @@ Meteor.methods({
 		if (myself) {
 			Friends.update({self},  { $addToSet : { "friends" :  friend}});
 		} else {
-			Friends.insert({createdAt: new Date(), self}, function(error, result) {
+			const data = {createdAt: new Date(), self};
+			Friends.schema.validate(data);
+			Friends.insert(data, function(error, result) {
 				if (error) {
 					console.log("error", error);
 				} else {
@@ -21,3 +23,9 @@ Meteor.methods({
 });
 
 export const Friends = new Mongo.Collection('friends');
+
+Friends.schema = new SimpleSchema({
+	createdAt: {type: Date},
+	self: {type: String},
+	friends: {type: [String], optional: true}
+});

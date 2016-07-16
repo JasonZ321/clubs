@@ -6,10 +6,10 @@ export function createClub(club, callback) {
 			console.log("error", error);
 		}
 		if (result) {
-			console.log("Club %s was created.", result.name );
+			console.log("Club %s was created.", result );
 		}
 		if (callback) {
-			callback(result);
+			callback(error, result);
 		}
 	});
 }

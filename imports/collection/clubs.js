@@ -2,11 +2,20 @@ import { Mongo } from 'meteor/mongo';
 
 Meteor.methods({
 	'clubs.insert': function(club) {
-		return Clubs.insert({
+		const data = {
 			createdAt: new Date(),
-			owner: this.userId,
 			...club
-		});
+		};
+
+		Clubs.schema.validate(data);
+		return Clubs.insert(data);
+	},
+	'clubs.addOwner': function(clubId) {
+		if (clubId) {
+			Clubs.update(clubId, {
+				$set: { owner: this.userId },
+			});
+		}
 	},
 	'clubs.remove': function(club) {
 		if (club.owner === this.userId) {
@@ -26,3 +35,10 @@ Meteor.methods({
 
 
 export const Clubs = new Mongo.Collection('clubs');
+Clubs.schema = new SimpleSchema({
+	name: {type: String},
+	city: {type: String},
+	owner: {type: String, optional: true},
+	avatarURL: {type: String, optional: true},
+	createdAt: {type: Date}
+});

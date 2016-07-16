@@ -27,3 +27,4 @@ cfs:graphicsmagick
 cfs:filesystem
 accounts-base
 ultimatejs:tracker-react
+aldeed:simple-schema

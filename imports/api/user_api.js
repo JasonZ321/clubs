@@ -3,22 +3,33 @@ import { Meteor } from 'meteor/meteor';
 import { Clubs } from '../collection/clubs';
 import { Friends } from '../collection/friends';
 import { IMAGE_BASE_URL } from '../util/constants';
+import { createClub } from './club_api';
 
 export function createClubUser({email, password, city, name}, callback) {
-	Accounts.createUser({email, password, isClubUser: true}, function(error){
+	createClub({name, city}, function(error, clubId) {
 		if (error) {
 			console.log(error);
-		} else {
-
-			Meteor.call("clubs.insert", {name, city}, function(error, result){
-				if(error){
-					console.log("error", error);
-				}
-				if(result){
-					console.log("Club user %s created", name);
-				}
-				if (callback) {
-					callback(result);
+			if (callback) {
+				callback(error);
+			}
+		}
+		if (clubId) {
+			Accounts.createUser({email, password, isClubUser: true}, function(error){
+				if (error) {
+					console.log(error);
+					Clubs.remove({_id: clubId});
+					if (callback) {
+						callback(error);
+					}
+				} else {
+					Meteor.call("clubs.addOwner", clubId, function(error, result){
+						if(error){
+							console.log("error", error);
+						}
+						if (callback) {
+							callback(error, clubId);
+						}
+					});
 				}
 			});
 		}

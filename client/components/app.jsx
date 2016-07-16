@@ -135,12 +135,13 @@ class App extends TrackerReact(Component) {
 				'name': clubRegisterName.value
 			};
 
-			createClubUser(userObject, function(result) {
+			createClubUser(userObject, function(error, result) {
+				if (error) {
+					console.error("no result found for newly created club user");
+				}
 				if (result) {
 					const url = `/club/${result}`;
 					browserHistory.push(url);
-				} else {
-					console.error("no result found for newly created club user");
 				}
 			});
 		}

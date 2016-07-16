@@ -19,15 +19,22 @@ class PostCreatePopup extends Component {
 
 		const title = titleRef.getValue();
 		const	content = contentRef.getValue();
-
+		
 		if (title && content) {
 			this.props.onSubmit(title, content, this.state.articleSelected);
 		} else {
 			alert("Must fill all fields");
 		}
+		this.state = {
+			articleSelected: true
+		};
+
 	}
 	cancel(event) {
 		event.preventDefault();
+		this.state = {
+			articleSelected: true
+		};
 		this.props.onCancel();
 	}
 	onToggle() {

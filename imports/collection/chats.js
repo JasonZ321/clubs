@@ -5,7 +5,9 @@ function addMessage(sender, receiver, content, recordSender) {
 	if (message) {
 		Chats.update({sender, receiver},  { $addToSet : { "messages" :  {sender: recordSender, content, date: new Date()}}});
 	} else {
-		Chats.insert({createdAt: new Date(), sender, receiver}, function(error, result) {
+		const data = {createdAt: new Date(), sender, receiver};
+		Chats.schema.validate(data);
+		Chats.insert(data, function(error, result) {
 			if (error) {
 				console.log("error", error);
 			} else {
@@ -35,3 +37,9 @@ Meteor.methods({
 // 	]
 // }
 export const Chats = new Mongo.Collection('chats');
+Chats.schema = new SimpleSchema({
+	sender: {type: String},
+	receiver: {type: String},
+	createdAt: {type: Date},
+	messages: {type: [Object], optional: true}
+});
