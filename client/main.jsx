@@ -18,6 +18,9 @@ import UserMessageListContainer from './components/users/message/message_list_co
 import UserMessageChatContainer from './components/users/message/message_chat_container';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 // Needed for onTouchTap
@@ -25,6 +28,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 const routes = (
+  <MuiThemeProvider>
   <Router history={browserHistory} >
     <Route path="/" component={App} />
     <Route path="/club/:clubId" component={ClubAppContainer} >
@@ -43,8 +47,9 @@ const routes = (
       <Route path='/user/:userId/messages' component={UserMessageListContainer} />
       <Route path='/user/:userId/messages/:userId' component={UserMessageChatContainer} />
     </Route>
-
   </Router>
+  </MuiThemeProvider>
+
 );
 
 Meteor.startup(function(){

@@ -6,6 +6,9 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import {composeWithTracker} from 'react-komposer';
 import { createClubUser, createNormalUser, loginClubUser, loginNormalUser } from '../../imports/api/user_api';
 
+// UI component library
+import FlatButton from 'material-ui/FlatButton';
+
 /**
  * @class - Entry point of clubs App
  * If user signed in, redirect to clubs user main page or normal user main page.
@@ -16,8 +19,10 @@ class App extends TrackerReact(Component) {
 	constructor(props) {
 		super(props);
 		this.state = {
-			userLoginMode: true,
-			clubLoginMode: true
+			userMode: true,
+			clubMode: false,
+			signinMode: true,
+			signupMode: false
 		}
 	}
 	componentWillUnmount() {
@@ -55,20 +60,36 @@ class App extends TrackerReact(Component) {
 			});
 		}
 	}
-	switchUserLoginMode(event) {
+
+	switchUserMode(event) {
 		event.preventDefault();
 		this.setState({
-			userLoginMode: !this.state.userLoginMode
+			userMode: true,
+			clubMode: false
 		});
 	}
-	switchClubLoginMode(event) {
+
+	switchClubMode(event) {
 		event.preventDefault();
 		this.setState({
-			clubLoginMode: !this.state.clubLoginMode
+			userMode: false,
+			clubMode: true
 		});
 	}
-	renderSwitch(loginMode, switchLoginMode) {
-		return loginMode ? <a href="#" className="btn btn-info" onClick={switchLoginMode.bind(this)}>登录</a> : <a href="#" className="btn btn-info" onClick={switchLoginMode.bind(this)}>注册</a>
+
+	switchSigninMode(event) {
+		event.preventDefault();
+		this.setState({
+			signinMode: true,
+			signupMode: false
+		});
+	}
+	switchSignupMode(event) {
+		event.preventDefault();
+		this.setState({
+			signinMode: false,
+			signupMode: true
+		});
 	}
 
 	/**
@@ -148,26 +169,24 @@ class App extends TrackerReact(Component) {
 
 	/**
 	 * renderUserForm - render method of normal user form
+	 * {this.renderSwitch(this.state.userLoginMode, this.switchUserLoginMode)}
+	 * <button onClick={this.onSubmitUser.bind(this)} className='btn btn-primary pull-right'>提交</button>
+	 * <button onClick={this.onSubmitUser.bind(this)} className='btn btn-primary pull-right'>提交</button>
+
 	 */
 	renderUserForm() {
-		if (this.state.userLoginMode) {
+
+		if (this.state.signinMode) {
 			return (
-				<fieldset className="scheduler-border">
-					<legend className="scheduler-border">用户</legend>
-					<form className="form-signin">
-							<label className="sr-only" for="useremail">邮箱:</label>
-							<input className='form-control' type="text" ref='userLoginEmail' placeholder="邮箱" id='useremail'/>
-							<label className="sr-only" for="userpassword">密码:</label>
-							<input className='form-control' type="text" ref='userLoginPassword' placeholder="密码" id='userpassword'/>
-							{this.renderSwitch(this.state.userLoginMode, this.switchUserLoginMode)}
-							<button onClick={this.onSubmitUser.bind(this)} className='btn btn-primary pull-right'>提交</button>
-					</form>
-				</fieldset>
+				<form className="form-signin">
+					<label className="sr-only" for="useremail">邮箱:</label>
+					<input className='form-control' type="text" ref='userLoginEmail' placeholder="邮箱" id='useremail'/>
+					<label className="sr-only" for="userpassword">密码:</label>
+					<input className='form-control' type="text" ref='userLoginPassword' placeholder="密码" id='userpassword'/>
+				</form>
 			)
 		} else {
 			return (
-				<fieldset className="scheduler-border">
-					<legend className="scheduler-border">用户</legend>
 					<form className="form-signin">
 							<label className="sr-only" for="useremail">邮箱:</label>
 							<input className='form-control' type="text" ref='userRegisterEmail' placeholder="邮箱" id='useremail'/>
@@ -177,36 +196,27 @@ class App extends TrackerReact(Component) {
 							<input className='form-control' type="text" ref='userRegisterPassword' placeholder="密码" id='userpassword'/>
 							<label className="sr-only" for="userpassword">密码确认:</label>
 							<input className='form-control' type="text" ref='userRegisterPasswordConfirm' placeholder="密码确认" id='userpassword'/>
-							{this.renderSwitch(this.state.userLoginMode, this.switchUserLoginMode)}
-							<button onClick={this.onSubmitUser.bind(this)} className='btn btn-primary pull-right'>提交</button>
 					</form>
-				</fieldset>
 			)
 		}
 	}
 
 	/**
 	 * renderClubForm - render method of club user form
+	 * <button onClick={this.onSubmitClub.bind(this)} className='btn btn-primary pull-right'>提交</button>
 	 */
 	renderClubForm() {
-		if (this.state.clubLoginMode) {
+		if (this.state.signinMode) {
 			return (
-				<fieldset className="scheduler-border">
-					<legend className="scheduler-border">社团</legend>
 					<form className="form-signin">
 						<label className="sr-only" for="clubemail">邮箱:</label>
 						<input className='form-control' type="text" ref='clubLoginEmail' placeholder="邮箱" id='clubemail'/>
 						<label className="sr-only" for="clubpassword">密码:</label>
 						<input className='form-control' type="text" ref='clubLoginPassword' placeholder="密码" id='clubpassword'/>
-						{this.renderSwitch(this.state.clubLoginMode, this.switchClubLoginMode)}
-						<button onClick={this.onSubmitClub.bind(this)} className='btn btn-primary pull-right'>提交</button>
 					</form>
-				</fieldset>
 			);
 		} else {
 			return (
-				<fieldset className="scheduler-border">
-					<legend className="scheduler-border">社团</legend>
 					<form className="form-signin">
 						<label className="sr-only" for="clubemail">邮箱:</label>
 						<input className='form-control' type="text" ref='clubRegisterEmail' placeholder="邮箱" id='clubemail'/>
@@ -218,22 +228,50 @@ class App extends TrackerReact(Component) {
 						<input className='form-control' type="text" ref='clubRegisterPassword' placeholder="密码" id='clubpassword'/>
 						<label className="sr-only" for="clubpassword">密码确认:</label>
 						<input className='form-control' type="text" ref='clubRegisterPasswordConfirm' placeholder="密码确认" id='clubpassword'/>
-						{this.renderSwitch(this.state.clubLoginMode, this.switchClubLoginMode)}
-						<button onClick={this.onSubmitClub.bind(this)} className='btn btn-primary pull-right'>提交</button>
 					</form>
-				</fieldset>
 			);
 		}
 	}
+
+	renderForm(){
+		if (this.state.userMode) {
+			return(
+				<div>
+			  	{this.renderUserForm()}
+    		</div>
+			)
+		}
+		else {
+			return(
+				<div>
+			  	{this.renderClubForm()}
+    		</div>			)
+		}
+	}
+
+	/**
+	 * renderAccessForm - render method of user and club form
+	 */
+	 //onClick={switchClubMode.bind(this)}
+	renderAccessForm(){
+
+		return (
+			<fieldset className="scheduler-border">
+				<FlatButton className="access-form" label="用户" primary={this.state.userMode} onClick={this.switchUserMode.bind(this)}/>
+				<FlatButton className="access-form" label="社团" primary={this.state.clubMode} onClick={this.switchClubMode.bind(this)}/>
+				{this.renderForm()}
+				<FlatButton className="access-form" label="登陆" primary={this.state.signinMode} onClick={this.switchSigninMode.bind(this)}/>
+				<FlatButton className="access-form" label="注册" primary={this.state.signupMode} onClick={this.switchSignupMode.bind(this)}/>
+			</fieldset>
+		)
+	}
+
 	render() {
 		return (
 			<div className="row">
 				<div className="col-sm-6 col-sm-3">
-					{this.renderUserForm()}
-				</div>
-				<div className="col-sm-6 col-sm-3">
-					{this.renderClubForm()}
-				</div>
+    			{this.renderAccessForm()}
+    		</div>
 			</div>
 		);
 	}
