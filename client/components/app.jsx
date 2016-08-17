@@ -99,7 +99,7 @@ class App extends TrackerReact(Component) {
 	 */
 	onSubmitUser(event) {
 		event.preventDefault();
-		if (this.state.userLoginMode) {
+		if (this.state.signinMode) {
 			const {userLoginEmail, userLoginPassword} = this.refs;
 			if (userLoginEmail.value && userLoginPassword.value) {
 				loginNormalUser(userLoginEmail.value, userLoginPassword.value, function(userId) {
@@ -124,6 +124,10 @@ class App extends TrackerReact(Component) {
 					browserHistory.push(url);
 				}
 			});
+			loginNormalUser(userLoginEmail.value, userLoginPassword.value, function(userId) {
+				const url = `/user/${userId}`;
+				browserHistory.push(url);
+			});
 		}
 	}
 
@@ -134,7 +138,7 @@ class App extends TrackerReact(Component) {
 	 */
 	onSubmitClub(event) {
 		event.preventDefault();
-		if (this.state.clubLoginMode) {
+		if (this.state.signinMode) {
 			const {clubLoginEmail, clubLoginPassword} = this.refs;
 			if (clubLoginEmail.value && clubLoginPassword.value) {
 				loginClubUser(clubLoginEmail.value, clubLoginPassword.value, function(club) {
@@ -164,6 +168,11 @@ class App extends TrackerReact(Component) {
 					console.error("no result found for newly created club user");
 				}
 			});
+			loginClubUser(clubLoginEmail.value, clubLoginPassword.value, function(club) {
+				const clubId = club._id;
+				const url = `/club/${clubId}`;
+				browserHistory.push(url);
+			});
 		}
 	}
 
@@ -183,6 +192,7 @@ class App extends TrackerReact(Component) {
 					<input className='form-control' type="text" ref='userLoginEmail' placeholder="邮箱" id='useremail'/>
 					<label className="sr-only" for="userpassword">密码:</label>
 					<input className='form-control' type="text" ref='userLoginPassword' placeholder="密码" id='userpassword'/>
+					<FlatButton backgroundColor="#2196F3" className="start-but" onClick={this.onSubmitUser.bind(this)} label="开始"/>
 				</form>
 			)
 		} else {
@@ -196,6 +206,7 @@ class App extends TrackerReact(Component) {
 							<input className='form-control' type="text" ref='userRegisterPassword' placeholder="密码" id='userpassword'/>
 							<label className="sr-only" for="userpassword">密码确认:</label>
 							<input className='form-control' type="text" ref='userRegisterPasswordConfirm' placeholder="密码确认" id='userpassword'/>
+							<FlatButton backgroundColor="#2196F3" className="start-but" onClick={this.onSubmitUser.bind(this)} label="开始"/>
 					</form>
 			)
 		}
@@ -213,6 +224,7 @@ class App extends TrackerReact(Component) {
 						<input className='form-control' type="text" ref='clubLoginEmail' placeholder="邮箱" id='clubemail'/>
 						<label className="sr-only" for="clubpassword">密码:</label>
 						<input className='form-control' type="text" ref='clubLoginPassword' placeholder="密码" id='clubpassword'/>
+						<FlatButton backgroundColor="#2196F3" className="start-but" onClick={this.onSubmitClub.bind(this)} label="开始"/>
 					</form>
 			);
 		} else {
@@ -228,6 +240,7 @@ class App extends TrackerReact(Component) {
 						<input className='form-control' type="text" ref='clubRegisterPassword' placeholder="密码" id='clubpassword'/>
 						<label className="sr-only" for="clubpassword">密码确认:</label>
 						<input className='form-control' type="text" ref='clubRegisterPasswordConfirm' placeholder="密码确认" id='clubpassword'/>
+						<FlatButton backgroundColor="#2196F3" className="start-but" onClick={this.onSubmitClub.bind(this)} label="开始"/>
 					</form>
 			);
 		}
